@@ -11,5 +11,14 @@ config_version=5
 [application]
 
 config/name="GMTK"
+run/main_scene="uid://bs6raedppu003"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[global_group]
+
+player=""
+
+[physics]
+
+2d/default_gravity_vector=Vector2(0, 0)
