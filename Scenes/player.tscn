@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1v78v08q0431"]
+[gd_scene load_steps=5 format=3 uid="uid://d1v78v08q0431"]
 
 [ext_resource type="Script" uid="uid://dmf72nab1roco" path="res://Scripts/player.gd" id="1_v0iea"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
 
+[sub_resource type="Curve" id="Curve_v0iea"]
+_data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_v0iea"]
+colors = PackedColorArray(0.4187, 0.69809, 0.393224, 1, 0.903935, 0.763777, 0.741653, 1)
+
 [node name="Player" type="RigidBody2D" groups=["player"]]
+linear_damp = 0.1
 script = ExtResource("1_v0iea")
+throw_strength = 3000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_f60y1")
@@ -25,6 +34,13 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Line2D2" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 114, 0)
+width = 3.0
+default_color = Color(0.184, 0.184, 0.184, 0.669)
+
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 94, 0)
-width = 2.0
+width = 5.0
+width_curve = SubResource("Curve_v0iea")
+gradient = SubResource("Gradient_v0iea")

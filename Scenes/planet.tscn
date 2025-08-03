@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://ctp2ijkmuavnm" path="res://Scripts/planet.gd" id="1_xehyc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kg0dd"]
-radius = 30.0
+radius = 300.0
 
 [node name="Planet" type="StaticBody2D"]
 collision_layer = 0
 script = ExtResource("1_xehyc")
-gravity = 1000.0
+gravity = 10000.0
+max_distance = 750
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kg0dd")
@@ -26,3 +27,8 @@ offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.990529, 0.15805, 0.113963, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kg0dd")
