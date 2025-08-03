@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://w6a8ecucjs34"]
+[gd_scene load_steps=5 format=3 uid="uid://w6a8ecucjs34"]
 
 [ext_resource type="Script" uid="uid://ctp2ijkmuavnm" path="res://Scripts/planet.gd" id="1_xehyc"]
+[ext_resource type="Texture2D" uid="uid://vbv1m5pourxl" path="res://Assets/Mars2-Copy-2-Scaled.png" id="2_vpe2g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kg0dd"]
+radius = 75.6637
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vpe2g"]
 radius = 300.0
 
 [node name="Planet" type="StaticBody2D"]
-collision_layer = 0
 script = ExtResource("1_xehyc")
 gravity = 10000.0
-max_distance = 750
+max_distance = 1000
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_vpe2g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kg0dd")
@@ -29,6 +37,8 @@ grow_vertical = 2
 color = Color(0.990529, 0.15805, 0.113963, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_kg0dd")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vpe2g")

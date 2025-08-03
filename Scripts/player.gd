@@ -5,6 +5,7 @@ var aiming: bool = true
 
 @export var max_mouse_dist: int = 300
 var line_max = 150
+var entered: bool = false
 
 @export var throw_strength: int = 2000
 
@@ -12,10 +13,26 @@ var line_max = 150
 @onready var line1: Line2D = $Line2D2
 
 func _ready() -> void:
+	contact_monitor = true
+	body_entered.connect(_on_body_entered)
+	max_contacts_reported = 1
 	Signals.planet_destroyed.connect(_planet_destroyed)
 
 func _process(delta: float) -> void:
-	if !aiming:
+	if entered:
+		entered = false
+		var timer := Timer.new()
+		timer.wait_time = 4
+		timer.one_shot = true
+		add_child(timer)
+		timer.start()
+		
+		await timer.timeout
+		
+		timer.queue_free()
+		queue_free()
+	
+	if !aiming or entered:
 		return
 	var mouse_click = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var mouse_coord = get_global_mouse_position()
@@ -42,3 +59,9 @@ func _planet_destroyed():
 	line.visible = true
 	line1.visible = true
 	freeze = true
+
+func _on_body_entered(body: Node):
+	if entered == true:
+		return
+	entered = true
+	Signals.emit_player_destroyed()
