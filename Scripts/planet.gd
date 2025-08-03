@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var gravity: float
+@export var gravity: float = 10000
 var player: RigidBody2D
 
 @onready var area: Area2D = $Area2D
@@ -16,7 +16,7 @@ var total_angle: float = 0
 
 var player_dead: bool = false
 
-@export var max_distance: int = 500
+@export var max_distance: int = 750
 
 func _update():
 	if res != null:
@@ -50,8 +50,7 @@ func _process(delta: float) -> void:
 				queue_free()
 
 func _on_body_entered(area1: Node2D):
-	curr_angle = abs((area.global_position - global_position).angle())
-	prev_angle = curr_angle
+	prev_angle = abs((player.global_position - global_position).angle())
 	total_angle = 0
 	calculate = true
 

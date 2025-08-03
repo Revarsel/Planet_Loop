@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs6raedppu003"]
+[gd_scene load_steps=7 format=3 uid="uid://bs6raedppu003"]
 
 [ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://d1v78v08q0431" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8j60k"]
 [ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="2_go701"]
+[ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="5_fo5ed"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8j60k")
@@ -39,9 +40,4 @@ position = Vector2(192, 619)
 
 [node name="Planet" parent="." instance=ExtResource("2_go701")]
 position = Vector2(367, 321)
-
-[node name="Planet2" parent="." instance=ExtResource("2_go701")]
-position = Vector2(1262, 956)
-
-[node name="Planet3" parent="." instance=ExtResource("2_go701")]
-position = Vector2(1344, 237)
+res = ExtResource("5_fo5ed")
