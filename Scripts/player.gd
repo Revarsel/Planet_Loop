@@ -11,6 +11,7 @@ var entered: bool = false
 
 @onready var line: Line2D = $Line2D
 @onready var line1: Line2D = $Line2D2
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
 	contact_monitor = true
@@ -20,6 +21,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if entered:
+		contact_monitor = false
 		entered = false
 		var timer := Timer.new()
 		timer.wait_time = 4
@@ -32,10 +34,14 @@ func _process(delta: float) -> void:
 		timer.queue_free()
 		queue_free()
 	
-	if !aiming or entered:
+	sprite.rotation = linear_velocity.angle() + PI/2
+	
+	if !aiming:
 		return
 	var mouse_click = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var mouse_coord = get_global_mouse_position()
+	
+	sprite.rotation = (mouse_coord - sprite.global_position).angle() + PI/2
 	
 	var mouse_dist = mouse_coord - global_position
 	var strength = min(mouse_dist.length() / max_mouse_dist, 1)

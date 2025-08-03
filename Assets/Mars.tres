@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="planet_sprite" load_steps=3 format=3 uid="uid://rn22vv13aith"]
+
+[ext_resource type="Script" uid="uid://d1wy3nvn4syjm" path="res://Scripts/resource.gd" id="1_bqgwe"]
+[ext_resource type="Texture2D" uid="uid://vbv1m5pourxl" path="res://Assets/Mars2-Copy-2-Scaled.png" id="2_bqgwe"]
+
+[resource]
+script = ExtResource("1_bqgwe")
+texture = ExtResource("2_bqgwe")
+scale = 0.1

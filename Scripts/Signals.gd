@@ -8,4 +8,4 @@ func emit_planet_destroyed():
 	planet_destroyed.emit()
 
 func emit_player_destroyed():
-	planet_destroyed.emit()
+	player_destroyed.emit()

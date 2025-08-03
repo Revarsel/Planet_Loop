@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="planet_sprite" load_steps=3 format=3 uid="uid://cpgl4bxh62l87"]
+
+[ext_resource type="Script" uid="uid://d1wy3nvn4syjm" path="res://Scripts/resource.gd" id="1_hjybj"]
+[ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="2_hjybj"]
+
+[resource]
+script = ExtResource("1_hjybj")
+texture = ExtResource("2_hjybj")
+scale = 0.13

@@ -5,6 +5,10 @@ var player: RigidBody2D
 
 @onready var area: Area2D = $Area2D
 
+@onready var sprite: Sprite2D = $Sprite2D
+
+@export var res: planet_sprite
+
 var calculate: bool = false
 var curr_angle: float = 0
 var prev_angle: float = 0
@@ -14,9 +18,16 @@ var player_dead: bool = false
 
 @export var max_distance: int = 500
 
+func _update():
+	if res != null:
+		print("Not null")
+		sprite.texture = res.texture
+		sprite.scale = Vector2(res.scale, res.scale)
+
 func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
 	area.body_exited.connect(_on_body_exited)
+	_update()
 	Signals.player_destroyed.connect(_player_destroyed)
 
 func _process(delta: float) -> void:
@@ -38,15 +49,16 @@ func _process(delta: float) -> void:
 				Signals.emit_planet_destroyed()
 				queue_free()
 
-func _on_body_entered(area: Node2D):
+func _on_body_entered(area1: Node2D):
 	curr_angle = abs((area.global_position - global_position).angle())
 	prev_angle = curr_angle
 	total_angle = 0
 	calculate = true
 
-func _on_body_exited(area: Node2D):
+func _on_body_exited(area1: Node2D):
 	total_angle = 0
 	calculate = false
 
 func _player_destroyed():
 	player_dead = true
+	gravity /= 2

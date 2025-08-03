@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bs6raedppu003"]
+[gd_scene load_steps=9 format=3 uid="uid://bs6raedppu003"]
 
 [ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://d1v78v08q0431" path="res://Scenes/player.tscn" id="1_a02cp"]
+[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8j60k"]
 [ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="2_go701"]
+[ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="5_fo5ed"]
+[ext_resource type="Resource" uid="uid://cpgl4bxh62l87" path="res://Assets/Earth.tres" id="6_5ukr8"]
+[ext_resource type="Resource" uid="uid://dijs1qq1y05i1" path="res://Assets/Earth2.tres" id="7_o06y3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+shader = ExtResource("2_8j60k")
+shader_parameter/bg_color = Vector4(0, 0, 0, 0)
 
 [node name="World" type="Node2D"]
 
@@ -10,16 +18,36 @@
 position = Vector2(576, 324)
 script = ExtResource("1_5a7ea")
 
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_fo5ed")
+custom_minimum_size = Vector2(1200, 700)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -350.0
+offset_right = 600.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_a02cp")]
-position = Vector2(217, 566)
+position = Vector2(192, 619)
 
 [node name="Planet" parent="." instance=ExtResource("2_go701")]
 position = Vector2(367, 321)
+res = ExtResource("5_fo5ed")
 
 [node name="Planet2" parent="." instance=ExtResource("2_go701")]
 position = Vector2(1262, 956)
+res = ExtResource("6_5ukr8")
 
 [node name="Planet3" parent="." instance=ExtResource("2_go701")]
 position = Vector2(1344, 237)
+res = ExtResource("7_o06y3")
