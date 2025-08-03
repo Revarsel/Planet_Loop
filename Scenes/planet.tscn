@@ -1,7 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://w6a8ecucjs34"]
 
-[ext_resource type="Script" uid="uid://ctp2ijkmuavnm" path="res://Scripts/planet.gd" id="1_xehyc"]
 [ext_resource type="Texture2D" uid="uid://3y2fga4lv40u" path="res://Assets/Earth-3.png" id="2_vpe2g"]
+
+[sub_resource type="GDScript" id="GDScript_xehyc"]
+script/source = "
+extends Node
+
+func _process(delta: float) -> void:
+	var parent = get_parent()
+	parent._update()
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kg0dd"]
 radius = 75.6637
@@ -10,14 +18,12 @@ radius = 75.6637
 radius = 300.0
 
 [node name="Planet" type="StaticBody2D"]
-script = ExtResource("1_xehyc")
-gravity = 10000.0
-max_distance = 1000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("2_vpe2g")
+script = SubResource("GDScript_xehyc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kg0dd")

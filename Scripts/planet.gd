@@ -27,8 +27,8 @@ func _update():
 func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
 	area.body_exited.connect(_on_body_exited)
-	_update()
 	Signals.player_destroyed.connect(_player_destroyed)
+	_update()
 
 func _process(delta: float) -> void:
 	Engine.time_scale = 2
