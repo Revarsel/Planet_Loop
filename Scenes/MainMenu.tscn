@@ -34,10 +34,10 @@ size_flags_vertical = 6
 
 [node name="PLAY" type="Button" parent="."]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 288.0
-offset_right = 252.0
-offset_bottom = 416.0
+offset_left = 176.0
+offset_top = 264.0
+offset_right = 404.0
+offset_bottom = 392.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PLAY"]
 position = Vector2(114, 64)
@@ -45,10 +45,10 @@ texture = ExtResource("2_8saeu")
 
 [node name="EXIT" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1128.0
-offset_top = 288.0
-offset_right = 1356.0
-offset_bottom = 416.0
+offset_left = 744.0
+offset_top = 264.0
+offset_right = 972.0
+offset_bottom = 392.0
 
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
 position = Vector2(114, 64)
