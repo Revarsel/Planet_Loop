@@ -6,6 +6,7 @@ var aiming: bool = true
 @export var max_mouse_dist: int = 300
 var line_max = 150
 var entered: bool = false
+var contacted: bool = false
 
 @export var throw_strength: int = 2000
 
@@ -16,21 +17,16 @@ var entered: bool = false
 func _ready() -> void:
 	contact_monitor = true
 	body_entered.connect(_on_body_entered)
-	max_contacts_reported = 1
+	max_contacts_reported = 10
 	Signals.planet_destroyed.connect(_planet_destroyed)
 
 func _process(delta: float) -> void:
 	if entered:
 		entered = false
-		
+		contact_monitor = false
 		await get_tree().create_timer(4).timeout
-		
 		Signals.emit_player_reset()
-		
-		print("Awaited")
-		
-		#timer.queue_free()
-		#queue_free()
+		queue_free()
 	
 	sprite.rotation = linear_velocity.angle() + PI/2
 	
@@ -65,8 +61,6 @@ func _planet_destroyed():
 	freeze = true
 
 func _on_body_entered(body: Node):
-	call_deferred("set_contact_monitor", false)
-	print("body entered??")
 	if entered == true:
 		return
 	entered = true

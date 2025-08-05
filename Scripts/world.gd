@@ -6,7 +6,7 @@ var curr_planets: int
 var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
 
 @onready var level_node: Node2D = $Level
-@onready var player: Player = $Player
+@onready var player_scene: = preload("res://Scenes/player.tscn")
 
 func _ready() -> void:
 	Signals.player_reset.connect(_player_reset)
@@ -23,7 +23,9 @@ func _process(delta: float) -> void:
 
 func _player_reset():
 	var level: Marker2D = level_node.get_child(0).get_node("player_pos")
+	var player: Player = player_scene.instantiate()
+	add_child(player)
 	player.global_position = level.global_position
 	player._planet_destroyed()
 	player.rotation = 0
-	player.contact_monitor = true
+	
