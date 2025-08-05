@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://5yy2obwqj612"]
+
+[ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_17dxn"]
+[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_2rm0l"]
+[ext_resource type="PackedScene" uid="uid://d1v78v08q0431" path="res://Scenes/player.tscn" id="3_qmg86"]
+[ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="4_sx15a"]
+[ext_resource type="Resource" uid="uid://cpgl4bxh62l87" path="res://Assets/Earth.tres" id="5_egu6v"]
+[ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="6_qmg86"]
+[ext_resource type="Resource" uid="uid://dijs1qq1y05i1" path="res://Assets/Earth2.tres" id="7_sx15a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+shader = ExtResource("2_2rm0l")
+shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+
+[node name="World" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("1_17dxn")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_fo5ed")
+custom_minimum_size = Vector2(1200, 700)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1176.0
+offset_top = -748.0
+offset_right = 2304.0
+offset_bottom = 748.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_qmg86")]
+position = Vector2(-48, 320)
+
+[node name="Planet" parent="." instance=ExtResource("4_sx15a")]
+position = Vector2(584, 584)
+res = ExtResource("5_egu6v")
+
+[node name="Planet2" parent="." instance=ExtResource("4_sx15a")]
+position = Vector2(80, -8)
+res = ExtResource("6_qmg86")
+
+[node name="Planet3" parent="." instance=ExtResource("4_sx15a")]
+position = Vector2(1736, 576)
+res = ExtResource("6_qmg86")
+
+[node name="Planet4" parent="." instance=ExtResource("4_sx15a")]
+position = Vector2(1152, 56)
+res = ExtResource("7_sx15a")
+
+[node name="Planet5" parent="." instance=ExtResource("4_sx15a")]
+position = Vector2(2336, 56)
+res = ExtResource("5_egu6v")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://c54vq8nkqecjh"]
+
+[ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_glqn7"]
+[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_1ktle"]
+[ext_resource type="PackedScene" uid="uid://d1v78v08q0431" path="res://Scenes/player.tscn" id="3_rgu2x"]
+[ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="4_6lrky"]
+[ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="5_xgp81"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+shader = ExtResource("2_1ktle")
+shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+
+[node name="World" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("1_glqn7")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_fo5ed")
+custom_minimum_size = Vector2(1200, 700)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1176.0
+offset_top = -748.0
+offset_right = 2304.0
+offset_bottom = 748.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_rgu2x")]
+position = Vector2(-262, -97)
+
+[node name="Planet" parent="." instance=ExtResource("4_6lrky")]
+position = Vector2(486, 658)
+res = ExtResource("5_xgp81")
+
+[node name="Planet2" parent="." instance=ExtResource("4_6lrky")]
+position = Vector2(-238, 331)
+res = ExtResource("5_xgp81")
+
+[node name="Planet3" parent="." instance=ExtResource("4_6lrky")]
+position = Vector2(923, 43)
+res = ExtResource("5_xgp81")
+
+[node name="Planet4" parent="." instance=ExtResource("4_6lrky")]
+position = Vector2(1785, 440)
+res = ExtResource("5_xgp81")
