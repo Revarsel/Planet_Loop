@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 @export var gravity: float = 10000
+var gravity_halved: float = gravity/2
 var player: RigidBody2D
 
 @onready var area: Area2D = $Area2D
@@ -20,7 +21,6 @@ var player_dead: bool = false
 
 func _update():
 	if res != null:
-		print("Not null")
 		sprite.texture = res.texture
 		sprite.scale = Vector2(res.scale, res.scale)
 
@@ -28,6 +28,7 @@ func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
 	area.body_exited.connect(_on_body_exited)
 	Signals.player_destroyed.connect(_player_destroyed)
+	Signals.player_reset.connect(_player_reset)
 	_update()
 
 func _process(delta: float) -> void:
@@ -59,5 +60,12 @@ func _on_body_exited(area1: Node2D):
 	calculate = false
 
 func _player_destroyed():
+	print("Player destroyed :c")
 	player_dead = true
-	gravity /= 2
+	gravity = gravity_halved
+
+func _player_reset():
+	print("Player reset c:")
+	player_dead = false
+	total_angle = 0
+	gravity = gravity_halved * 2

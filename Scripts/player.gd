@@ -21,18 +21,16 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if entered:
-		contact_monitor = false
 		entered = false
-		var timer := Timer.new()
-		timer.wait_time = 4
-		timer.one_shot = true
-		add_child(timer)
-		timer.start()
 		
-		await timer.timeout
+		await get_tree().create_timer(4).timeout
 		
-		timer.queue_free()
-		queue_free()
+		Signals.emit_player_reset()
+		
+		print("Awaited")
+		
+		#timer.queue_free()
+		#queue_free()
 	
 	sprite.rotation = linear_velocity.angle() + PI/2
 	
@@ -67,6 +65,8 @@ func _planet_destroyed():
 	freeze = true
 
 func _on_body_entered(body: Node):
+	call_deferred("set_contact_monitor", false)
+	print("body entered??")
 	if entered == true:
 		return
 	entered = true

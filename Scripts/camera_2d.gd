@@ -7,9 +7,20 @@ var curr_mouse_pos: Vector2 = Vector2.ZERO
 
 var f_pressed: bool = false
 
+var update: bool = false
+
+func _ready() -> void:
+	Signals.player_reset.connect(update_cam)
+
 func _physics_process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("player")
 	if player != null:
+		if update:
+			global_position = lerp(global_position, player.global_position, exp(-50 * delta))
+			if (global_position - player.global_position).length() < 5:
+				global_position = player.global_position
+				update = false
+			return
 		curr_mouse_pos = get_local_mouse_position()
 		if !player.aiming:
 			global_position = lerp(global_position, player.global_position, exp(-50 * delta))
@@ -19,9 +30,12 @@ func _physics_process(delta: float) -> void:
 			f_pressed = true
 		
 		if f_pressed:
-			global_position = lerp(global_position, player.global_position, 10 * delta)
+			global_position = lerp(global_position, player.global_position, exp(-50 * delta))
 			if (global_position - player.global_position).length() < 5:
 				global_position = player.global_position
 				f_pressed = false
 		
 		mouse_pos = curr_mouse_pos
+
+func update_cam():
+	update = true

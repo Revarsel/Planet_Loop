@@ -14,3 +14,6 @@ position = Vector2(1056, 320)
 
 [node name="Planet3" parent="." instance=ExtResource("4_6ll4n")]
 position = Vector2(1720, 328)
+
+[node name="player_pos" type="Marker2D" parent="."]
+position = Vector2(-106, 324)

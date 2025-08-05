@@ -10,7 +10,7 @@ radius = 75.6637
 [sub_resource type="CircleShape2D" id="CircleShape2D_vpe2g"]
 radius = 300.0
 
-[node name="Planet" type="StaticBody2D"]
+[node name="Planet" type="StaticBody2D" groups=["planet"]]
 script = ExtResource("1_m0iey")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,7 +27,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_vpe2g")
-debug_color = Color(0.9083, 0.26145, 0.385105, 0)
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 scale = Vector2(0.525, 0.525)
