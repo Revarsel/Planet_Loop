@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://w6a8ecucjs34"]
+[gd_scene load_steps=7 format=3 uid="uid://w6a8ecucjs34"]
 
 [ext_resource type="Script" uid="uid://ctp2ijkmuavnm" path="res://Scripts/planet.gd" id="1_m0iey"]
 [ext_resource type="Texture2D" uid="uid://bnhr1jefvbjpc" path="res://Assets/Gradient_Border-4.png" id="2_m0iey"]
 [ext_resource type="Texture2D" uid="uid://3y2fga4lv40u" path="res://Assets/Earth-3.png" id="2_vpe2g"]
+[ext_resource type="Texture2D" uid="uid://cxintmcxhxemv" path="res://Assets/Gradient_Border-4-Red.png" id="4_ytj11"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kg0dd"]
 radius = 75.6637
@@ -28,6 +29,11 @@ collision_mask = 2
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_vpe2g")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Blue_Border" type="Sprite2D" parent="."]
 scale = Vector2(0.525, 0.525)
 texture = ExtResource("2_m0iey")
+
+[node name="Red_Border" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.525, 0.525)
+texture = ExtResource("4_ytj11")

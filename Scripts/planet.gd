@@ -10,10 +10,16 @@ var player: RigidBody2D
 
 @export var res: planet_sprite
 
+@onready var blue_border = $Blue_Border
+@onready var red_border = $Red_Border
+
 var calculate: bool = false
 var curr_angle: float = 0
 var prev_angle: float = 0
 var total_angle: float = 0
+
+var blue_alpha: float = 1
+var red_alpha: float = 0
 
 var player_dead: bool = false
 
@@ -45,6 +51,11 @@ func _process(delta: float) -> void:
 			curr_angle = abs((player.global_position - global_position).angle())
 			total_angle += abs(curr_angle - prev_angle) * int(!player_dead)
 			prev_angle = curr_angle
+			
+			blue_alpha = 1 - (total_angle/TAU)
+			red_alpha = total_angle/TAU
+			blue_border.self_modulate = Color(1,1,1, blue_alpha)
+			red_border.self_modulate = Color(1,1,1, red_alpha)
 			
 			if total_angle > TAU:
 				Signals.emit_planet_destroyed()
