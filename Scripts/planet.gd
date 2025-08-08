@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 		var distance: = global_position - player.global_position
 		var length: float = max(distance.length(), 250)
 		var force: = gravity * 2000 / (length * length)
-		player.apply_force(distance.normalized() * force * int(length < max_distance))
+		player.apply_force(distance.normalized() * force) # * int(length < max_distance))
 		if calculate:
 			curr_angle = abs((player.global_position - global_position).angle())
 			total_angle += abs(curr_angle - prev_angle) * int(!player_dead)
@@ -60,6 +60,14 @@ func _process(delta: float) -> void:
 			if total_angle > TAU:
 				Signals.emit_planet_destroyed()
 				queue_free()
+		else:
+			reset_borders()
+
+func reset_borders():
+	blue_alpha = 1
+	red_alpha = 0
+	blue_border.self_modulate = Color(1,1,1, blue_alpha)
+	red_border.self_modulate = Color(1,1,1, red_alpha)
 
 func _on_body_entered(area1: Node2D):
 	prev_angle = abs((player.global_position - global_position).angle())
@@ -73,6 +81,8 @@ func _on_body_exited(area1: Node2D):
 func _player_destroyed():
 	player_dead = true
 	gravity = gravity_halved
+	calculate = false
+	reset_borders()
 
 func _player_reset():
 	player_dead = false
