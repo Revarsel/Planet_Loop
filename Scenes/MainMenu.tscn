@@ -1,36 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5brmtrmjh38r"]
+[gd_scene load_steps=4 format=3 uid="uid://c5brmtrmjh38r"]
 
 [ext_resource type="Script" uid="uid://7yprraq7avv3" path="res://Scripts/main_menu.gd" id="1_ghw46"]
 [ext_resource type="Texture2D" uid="uid://lek1bbw8lbit" path="res://Assets/PlayButton-1.png" id="2_8saeu"]
-[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8um5k"]
 [ext_resource type="Texture2D" uid="uid://bg84qhumc3j6e" path="res://Assets/ExitButton-1.png" id="3_ghw46"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
-shader = ExtResource("2_8um5k")
-shader_parameter/bg_color = Vector4(0, 0, 0, 0)
-
-[node name="World" type="Control"]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ghw46")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_fo5ed")
-custom_minimum_size = Vector2(1200, 700)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -424.0
-offset_right = 2020.0
-offset_bottom = 1072.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
 
 [node name="PLAY" type="Button" parent="."]
 layout_mode = 0

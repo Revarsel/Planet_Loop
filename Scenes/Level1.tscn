@@ -6,7 +6,8 @@
 [node name="Level1" type="Node2D"]
 
 [node name="player_pos" type="Marker2D" parent="."]
-position = Vector2(120, 316)
+position = Vector2(228, 328)
 
 [node name="Planet" parent="." instance=ExtResource("4_6ll4n")]
+position = Vector2(795, 318)
 res = ExtResource("5_kylad")

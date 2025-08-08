@@ -26,3 +26,6 @@ res = ExtResource("7_sx15a")
 [node name="Planet5" parent="." instance=ExtResource("4_sx15a")]
 position = Vector2(2336, 56)
 res = ExtResource("5_egu6v")
+
+[node name="player_pos" type="Marker2D" parent="."]
+position = Vector2(-497, 352)

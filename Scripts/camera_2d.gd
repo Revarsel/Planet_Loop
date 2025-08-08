@@ -7,7 +7,7 @@ var curr_mouse_pos: Vector2 = Vector2.ZERO
 
 var f_pressed: bool = false
 
-var update: bool = false
+var update: bool = true
 
 func _ready() -> void:
 	Signals.player_reset.connect(update_cam)

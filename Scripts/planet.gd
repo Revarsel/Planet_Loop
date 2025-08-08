@@ -60,12 +60,10 @@ func _on_body_exited(area1: Node2D):
 	calculate = false
 
 func _player_destroyed():
-	print("Player destroyed :c")
 	player_dead = true
 	gravity = gravity_halved
 
 func _player_reset():
-	print("Player reset c:")
 	player_dead = false
 	total_angle = 0
 	gravity = gravity_halved * 2
