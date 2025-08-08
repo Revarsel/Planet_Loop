@@ -1,15 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5brmtrmjh38r"]
+[gd_scene load_steps=14 format=3 uid="uid://c5brmtrmjh38r"]
 
 [ext_resource type="Script" uid="uid://7yprraq7avv3" path="res://Scripts/main_menu.gd" id="1_ghw46"]
 [ext_resource type="Texture2D" uid="uid://lek1bbw8lbit" path="res://Assets/PlayButton-1.png" id="2_8saeu"]
+[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8um5k"]
 [ext_resource type="Texture2D" uid="uid://bg84qhumc3j6e" path="res://Assets/ExitButton-1.png" id="3_ghw46"]
+[ext_resource type="Texture2D" uid="uid://vbv1m5pourxl" path="res://Assets/Mars2-Copy-2-Scaled.png" id="5_df05h"]
+[ext_resource type="Texture2D" uid="uid://3y2fga4lv40u" path="res://Assets/Earth-3.png" id="6_8um5k"]
+[ext_resource type="Script" uid="uid://dc7kdhn6c6mug" path="res://Scripts/mars_2_copy_2_scaled.gd" id="6_if7li"]
+[ext_resource type="Script" uid="uid://blona7nf1d7fj" path="res://Scripts/earth_3.gd" id="7_cmrfp"]
+[ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="7_xim88"]
+[ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="8_koqhg"]
+[ext_resource type="Script" uid="uid://ch5ltyk5nqtxr" path="res://Scripts/earth_2.gd" id="9_loo7a"]
+[ext_resource type="Script" uid="uid://ded1u0ce5wuw1" path="res://Scripts/satellite_1_copy_2.gd" id="12_rrcx7"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+shader = ExtResource("2_8um5k")
+shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+
+[node name="World" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ghw46")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fo5ed")
+custom_minimum_size = Vector2(1200, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -424.0
+offset_right = 2020.0
+offset_bottom = 1072.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
 [node name="PLAY" type="Button" parent="."]
+z_index = 1
 layout_mode = 0
 offset_left = 176.0
 offset_top = 264.0
@@ -21,6 +53,7 @@ position = Vector2(114, 64)
 texture = ExtResource("2_8saeu")
 
 [node name="EXIT" type="Button" parent="."]
+z_index = 1
 layout_mode = 0
 offset_left = 744.0
 offset_top = 264.0
@@ -30,6 +63,31 @@ offset_bottom = 392.0
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
 position = Vector2(114, 64)
 texture = ExtResource("3_ghw46")
+
+[node name="Mars2-copy-2-scaled" type="Sprite2D" parent="."]
+position = Vector2(0, 56)
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("5_df05h")
+script = ExtResource("6_if7li")
+
+[node name="Earth-3" type="Sprite2D" parent="."]
+position = Vector2(1104, 48)
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("6_8um5k")
+script = ExtResource("7_cmrfp")
+
+[node name="Earth-2" type="Sprite2D" parent="."]
+position = Vector2(544, 800)
+scale = Vector2(0.61, 0.61)
+texture = ExtResource("7_xim88")
+script = ExtResource("9_loo7a")
+
+[node name="Satellite-1-copy-2" type="Sprite2D" parent="."]
+position = Vector2(573.965, 237.77)
+rotation = -0.855211
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("8_koqhg")
+script = ExtResource("12_rrcx7")
 
 [connection signal="button_down" from="PLAY" to="." method="_on_play_button_down"]
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]
