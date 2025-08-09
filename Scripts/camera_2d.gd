@@ -38,12 +38,13 @@ func _physics_process(delta: float) -> void:
 		if (global_position - player.global_position).length() < 5:
 			global_position = player.global_position
 			update = false
-		return
+
 	curr_mouse_pos = get_local_mouse_position()
 	if !player.aiming: # Player is thrown
 		global_position = lerp(global_position, player.global_position, exp(-60 * delta))
 	elif Input.is_action_pressed("right_click"):
 		global_position += (mouse_pos - curr_mouse_pos)
+		update = false
 	elif Input.is_key_pressed(KEY_F):
 		f_pressed = true
 	
