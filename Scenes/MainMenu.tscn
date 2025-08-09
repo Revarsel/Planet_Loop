@@ -24,6 +24,7 @@ anchors_preset = 0
 script = ExtResource("1_ghw46")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_fo5ed")
 custom_minimum_size = Vector2(1200, 700)
 layout_mode = 1

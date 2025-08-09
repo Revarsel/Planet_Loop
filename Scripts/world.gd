@@ -10,7 +10,7 @@ var player_dest: bool = false
 
 @onready var camera: Camera2D = $Camera2D
 
-var endScene: PackedScene = preload("res://Scenes/end_screen.tscn")
+var endScene: PackedScene = preload("res://Scenes/EndScreen.tscn")
 
 var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
 
@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
 			var endScreen: Control = endScene.instantiate()
 			add_child(endScreen)
 			curr_state = States.states.EndScreen
+			get_tree().get_first_node_in_group("player").queue_free()
 		else:
 			current_level += 1
 			#get_tree().quit()
