@@ -1,0 +1,222 @@
+[gd_scene load_steps=22 format=3 uid="uid://bwvatfjne53cw"]
+
+[ext_resource type="Script" uid="uid://bp5ichhs23pgs" path="res://Scripts/how_to_play.gd" id="1_nctm4"]
+[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_s1303"]
+[ext_resource type="Texture2D" uid="uid://cyflrdrl48n3i" path="res://Assets/MainMenuButton-1.png" id="3_w7mqw"]
+[ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="9_2bqsr"]
+[ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="11_hg86a"]
+[ext_resource type="Texture2D" uid="uid://cp6psojp13jxe" path="res://Assets/HowToPlayText.png" id="14_s1303"]
+[ext_resource type="Texture2D" uid="uid://dme5q0x8yofd6" path="res://Assets/cursorColourFill.png" id="15_w7mqw"]
+[ext_resource type="Texture2D" uid="uid://c2fg1kty615ug" path="res://Assets/Control_Instructions1WithOutline.png" id="16_nctm4"]
+[ext_resource type="Texture2D" uid="uid://83p7r4royrc0" path="res://Assets/CrashIntoPlanet-Instruction.png" id="17_cqyoh"]
+[ext_resource type="Texture2D" uid="uid://bnhr1jefvbjpc" path="res://Assets/Gradient_Border-4.png" id="17_icywa"]
+[ext_resource type="Texture2D" uid="uid://c4h5dqhrghcxf" path="res://Assets/arrowWithRedOutlineBig.png" id="18_cqyoh"]
+[ext_resource type="Texture2D" uid="uid://cxintmcxhxemv" path="res://Assets/Gradient_Border-4-Red.png" id="18_v63ga"]
+[ext_resource type="Texture2D" uid="uid://cb5rvnlnsvb5o" path="res://Assets/Control_Instructions2-WithOutline.png" id="19_f8nnt"]
+[ext_resource type="Texture2D" uid="uid://dyqp480fd0ixk" path="res://Assets/RightClick-key Instruction.png" id="20_l4nhs"]
+[ext_resource type="Texture2D" uid="uid://cmka2oswda3t" path="res://Assets/F-key.png" id="21_hg86a"]
+[ext_resource type="Texture2D" uid="uid://ldhlrbb4c2id" path="res://Assets/F-key Instruction.png" id="22_tvr0b"]
+[ext_resource type="Texture2D" uid="uid://d4mkboemrkq0q" path="res://Assets/R-key.png" id="23_tvr0b"]
+[ext_resource type="Texture2D" uid="uid://c6odyas68shn6" path="res://Assets/R-key Instruction.png" id="24_uwl0s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+shader = ExtResource("2_s1303")
+shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_w7xx1"]
+_data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_s1303"]
+colors = PackedColorArray(0.4187, 0.69809, 0.393224, 1, 0.903935, 0.763777, 0.741653, 1)
+
+[node name="World" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nctm4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fo5ed")
+custom_minimum_size = Vector2(1200, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = -184.0
+offset_right = 2116.0
+offset_bottom = 1312.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="MainMenu" type="Button" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 448.0
+offset_top = 520.0
+offset_right = 676.0
+offset_bottom = 648.0
+scale = Vector2(0.76, 0.76)
+
+[node name="Sprite2D" type="Sprite2D" parent="MainMenu"]
+position = Vector2(114, 63.8337)
+scale = Vector2(0.875, 0.607941)
+texture = ExtResource("3_w7mqw")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(50, 150)
+rotation = 0.785398
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("11_hg86a")
+
+[node name="Line2D2" type="Line2D" parent="Player"]
+position = Vector2(35.3553, 247.487)
+rotation = -1.5708
+scale = Vector2(50, 50)
+points = PackedVector2Array(0, 0, 114, 0)
+width = 3.0
+default_color = Color(0.184, 0.184, 0.184, 0.669)
+
+[node name="Line2D" type="Line2D" parent="Player"]
+rotation = -1.5708
+scale = Vector2(50, 50)
+points = PackedVector2Array(0, 0, 62.9325, 0.707336)
+width = 5.0
+width_curve = SubResource("Curve_w7xx1")
+gradient = SubResource("Gradient_s1303")
+
+[node name="Player2" type="Sprite2D" parent="."]
+position = Vector2(200, 150)
+rotation = 0.785398
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("11_hg86a")
+
+[node name="Line2D2" type="Line2D" parent="Player2"]
+position = Vector2(35.3553, 247.487)
+rotation = -1.5708
+scale = Vector2(50, 50)
+points = PackedVector2Array(0, 0, 114, 0)
+width = 3.0
+default_color = Color(0.184, 0.184, 0.184, 0.669)
+
+[node name="Line2D" type="Line2D" parent="Player2"]
+position = Vector2(-0.000613904, -169.587)
+rotation = -1.5708
+scale = Vector2(83.9174, 50)
+points = PackedVector2Array(0, 0, 62.9325, 0.707336)
+width = 5.0
+width_curve = SubResource("Curve_w7xx1")
+gradient = SubResource("Gradient_s1303")
+
+[node name="HowToPlayText" type="Sprite2D" parent="."]
+position = Vector2(600, 40)
+scale = Vector2(0.665, 0.665)
+texture = ExtResource("14_s1303")
+
+[node name="CursorColourFill" type="Sprite2D" parent="."]
+position = Vector2(100.04, 114.5)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("15_w7mqw")
+
+[node name="CursorColourFill2" type="Sprite2D" parent="."]
+position = Vector2(282.785, 82.09)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("15_w7mqw")
+
+[node name="ControlInstructions1WithOutline" type="Sprite2D" parent="."]
+position = Vector2(240, 256)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("16_nctm4")
+
+[node name="Earth-4" type="Sprite2D" parent="."]
+position = Vector2(792, 200)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("9_2bqsr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Earth-4"]
+position = Vector2(0.00195313, 0)
+scale = Vector2(2.8985, 2.8985)
+texture = ExtResource("17_icywa")
+
+[node name="Player3" type="Sprite2D" parent="Earth-4"]
+position = Vector2(-933.333, -666.667)
+rotation = 0.785398
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_hg86a")
+
+[node name="Earth-5" type="Sprite2D" parent="."]
+position = Vector2(1030, 200)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("9_2bqsr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Earth-5"]
+position = Vector2(0.00195313, 0)
+scale = Vector2(2.8985, 2.8985)
+texture = ExtResource("18_v63ga")
+
+[node name="Player3" type="Sprite2D" parent="Earth-5"]
+position = Vector2(-1566.67, -1466.67)
+rotation = 0.785398
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_hg86a")
+
+[node name="ControlInstructions2-withOutline" type="Sprite2D" parent="."]
+position = Vector2(920, 437)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("19_f8nnt")
+
+[node name="RightClick-keyInstruction" type="Sprite2D" parent="."]
+position = Vector2(248, 376)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("20_l4nhs")
+
+[node name="F-key" type="Sprite2D" parent="."]
+position = Vector2(47, 468)
+texture = ExtResource("21_hg86a")
+
+[node name="F-keyInstruction" type="Sprite2D" parent="."]
+position = Vector2(260, 468)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("22_tvr0b")
+
+[node name="R-key" type="Sprite2D" parent="."]
+position = Vector2(47, 560)
+texture = ExtResource("23_tvr0b")
+
+[node name="R-keyInstruction" type="Sprite2D" parent="."]
+position = Vector2(245, 560)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("24_uwl0s")
+
+[node name="CrashIntoPlanet-instruction" type="Sprite2D" parent="."]
+position = Vector2(889, 600)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("17_cqyoh")
+
+[node name="ArrowWithRedOutlineBig" type="Sprite2D" parent="."]
+position = Vector2(672, 328)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("18_cqyoh")
+
+[node name="ArrowWithRedOutlineBig2" type="Sprite2D" parent="."]
+position = Vector2(672, 384)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("18_cqyoh")
+
+[node name="ArrowWithRedOutlineBig3" type="Sprite2D" parent="."]
+position = Vector2(672, 440)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("18_cqyoh")
+
+[node name="ArrowWithRedOutlineBig4" type="Sprite2D" parent="."]
+position = Vector2(672, 576)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("18_cqyoh")
+
+[connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]

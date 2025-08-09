@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="7_xim88"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="8_koqhg"]
 [ext_resource type="Script" uid="uid://ch5ltyk5nqtxr" path="res://Scripts/earth_2.gd" id="9_loo7a"]
-[ext_resource type="Script" path="res://Scripts/satellite_1_copy_2.gd" id="12_rrcx7"]
+[ext_resource type="Script" uid="uid://bjskfvm71mle5" path="res://Scripts/satelliteOriginal.gd" id="12_rrcx7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8um5k")
@@ -23,7 +23,6 @@ anchors_preset = 0
 script = ExtResource("1_ghw46")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_fo5ed")
 custom_minimum_size = Vector2(1200, 700)
 layout_mode = 1
