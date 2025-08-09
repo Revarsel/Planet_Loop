@@ -8,6 +8,10 @@ const PlayU = preload("res://Assets/PlayButton-1.png")
 const ExitP = preload("res://Assets/ExitButton-1-Pressed.png")
 const ExitU = preload("res://Assets/ExitButton-1.png")
 
+@onready var HowToPlayPressed: Sprite2D = $HowToPlayButton/Sprite2D
+const HowToPlayP = preload("res://Assets/HowToPlay-ButtonPressed.png")
+const HowToPlayU = preload("res://Assets/HowToPlay-Button.png")
+
 func _on_play_pressed() -> void:
 	PlayPressed.texture = PlayU
 	
@@ -33,3 +37,10 @@ func _on_play_button_down() -> void:
 
 func _on_exit_button_down() -> void:
 	ExitPressed.texture = ExitP
+
+func _on_how_to_play_button_pressed() -> void:
+	HowToPlayPressed.texture = HowToPlayU
+	get_tree().change_scene_to_file("res://Scenes/HowToPlay.tscn")
+
+func _on_how_to_play_button_button_down() -> void:
+	HowToPlayPressed.texture = HowToPlayP

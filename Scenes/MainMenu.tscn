@@ -1,17 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5brmtrmjh38r"]
+[gd_scene load_steps=15 format=3 uid="uid://c5brmtrmjh38r"]
 
 [ext_resource type="Script" uid="uid://7yprraq7avv3" path="res://Scripts/main_menu.gd" id="1_ghw46"]
 [ext_resource type="Texture2D" uid="uid://lek1bbw8lbit" path="res://Assets/PlayButton-1.png" id="2_8saeu"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8um5k"]
 [ext_resource type="Texture2D" uid="uid://bg84qhumc3j6e" path="res://Assets/ExitButton-1.png" id="3_ghw46"]
 [ext_resource type="Texture2D" uid="uid://vbv1m5pourxl" path="res://Assets/Mars2-Copy-2-Scaled.png" id="5_df05h"]
+[ext_resource type="Texture2D" uid="uid://7aja1kvvxvfq" path="res://Assets/HowToPlay-Button.png" id="5_fh7cp"]
 [ext_resource type="Texture2D" uid="uid://3y2fga4lv40u" path="res://Assets/Earth-3.png" id="6_8um5k"]
 [ext_resource type="Script" uid="uid://dc7kdhn6c6mug" path="res://Scripts/mars_2_copy_2_scaled.gd" id="6_if7li"]
 [ext_resource type="Script" uid="uid://blona7nf1d7fj" path="res://Scripts/earth_3.gd" id="7_cmrfp"]
 [ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="7_xim88"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="8_koqhg"]
 [ext_resource type="Script" uid="uid://ch5ltyk5nqtxr" path="res://Scripts/earth_2.gd" id="9_loo7a"]
-[ext_resource type="Script" path="res://Scripts/satellite_1_copy_2.gd" id="12_rrcx7"]
+[ext_resource type="Script" uid="uid://bjskfvm71mle5" path="res://Scripts/satelliteOriginal.gd" id="12_rrcx7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8um5k")
@@ -23,7 +24,6 @@ anchors_preset = 0
 script = ExtResource("1_ghw46")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_fo5ed")
 custom_minimum_size = Vector2(1200, 700)
 layout_mode = 1
@@ -65,6 +65,19 @@ offset_bottom = 392.0
 position = Vector2(114, 64)
 texture = ExtResource("3_ghw46")
 
+[node name="HowToPlayButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 484.0
+offset_top = 424.0
+offset_right = 668.0
+offset_bottom = 552.0
+
+[node name="Sprite2D" type="Sprite2D" parent="HowToPlayButton"]
+position = Vector2(92, 64)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("5_fh7cp")
+
 [node name="Mars2-copy-2-scaled" type="Sprite2D" parent="."]
 position = Vector2(0, 56)
 scale = Vector2(0.205, 0.205)
@@ -94,3 +107,5 @@ script = ExtResource("12_rrcx7")
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]
 [connection signal="button_down" from="EXIT" to="." method="_on_exit_button_down"]
 [connection signal="button_up" from="EXIT" to="." method="_on_exit_button_up"]
+[connection signal="button_down" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
+[connection signal="pressed" from="HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
