@@ -16,6 +16,7 @@ var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("
 @onready var player_scene: = preload("res://Scenes/player.tscn")
 
 func _ready() -> void:
+	Signals.planet_destroyed.connect(_planet_destroyed)
 	Signals.player_reset.connect(_player_reset)
 	Signals.player_destroyed.connect(_player_destroyed)
 
@@ -60,3 +61,6 @@ func _player_reset():
 	
 func _player_destroyed():
 	player_dest = true
+
+func _planet_destroyed():
+	camera.update_cam()

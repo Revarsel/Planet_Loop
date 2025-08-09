@@ -64,8 +64,9 @@ func _process(delta: float) -> void:
 			reset_borders()
 
 func reset_borders():
-	blue_alpha = 1
-	red_alpha = 0
+	var delta: float = get_process_delta_time()
+	blue_alpha = lerp(blue_alpha, 1.0, exp(-250 * delta))
+	red_alpha = 1 - blue_alpha
 	blue_border.self_modulate = Color(1,1,1, blue_alpha)
 	red_border.self_modulate = Color(1,1,1, red_alpha)
 
