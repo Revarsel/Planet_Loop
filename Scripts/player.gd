@@ -16,6 +16,7 @@ var contacted: bool = false
 
 func _ready() -> void:
 	contact_monitor = true
+	freeze = true
 	body_entered.connect(_on_body_entered)
 	max_contacts_reported = 10
 	Signals.planet_destroyed.connect(_planet_destroyed)
@@ -27,32 +28,33 @@ func _process(delta: float) -> void:
 		await get_tree().create_timer(4).timeout
 		Signals.emit_player_reset()
 		queue_free()
+	else:
 	
-	sprite.rotation = linear_velocity.angle() + PI/2
-	
-	if !aiming:
-		return
-	var mouse_click = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	var mouse_coord = get_global_mouse_position()
-	
-	sprite.rotation = (mouse_coord - sprite.global_position).angle() + PI/2
-	
-	var mouse_dist = mouse_coord - global_position
-	var strength = min(mouse_dist.length() / max_mouse_dist, 1)
-	
-	var min_line_length = mouse_dist.normalized() * 15
-	var max_line_length = min_line_length + mouse_dist.normalized() * line_max
-	var line_length = min_line_length + strength * line_max * mouse_dist.normalized()
-	line.set_point_position(0, min_line_length)
-	line.set_point_position(1, line_length)
-	line1.set_point_position(0, min_line_length)
-	line1.set_point_position(1, max_line_length)
-	if mouse_click:
-		freeze = false
-		apply_force(mouse_dist.normalized() * strength * 10 * throw_strength)
-		line.visible = false
-		line1.visible = false
-		aiming = false
+		sprite.rotation = linear_velocity.angle() + PI/2
+		
+		if !aiming:
+			return
+		var mouse_click = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+		var mouse_coord = get_global_mouse_position()
+		
+		sprite.rotation = (mouse_coord - sprite.global_position).angle() + PI/2
+		
+		var mouse_dist = mouse_coord - global_position
+		var strength = min(mouse_dist.length() / max_mouse_dist, 1)
+		
+		var min_line_length = mouse_dist.normalized() * 15
+		var max_line_length = min_line_length + mouse_dist.normalized() * line_max
+		var line_length = min_line_length + strength * line_max * mouse_dist.normalized()
+		line.set_point_position(0, min_line_length)
+		line.set_point_position(1, line_length)
+		line1.set_point_position(0, min_line_length)
+		line1.set_point_position(1, max_line_length)
+		if mouse_click:
+			freeze = false
+			apply_force(mouse_dist.normalized() * strength * 10 * throw_strength)
+			line.visible = false
+			line1.visible = false
+			aiming = false
 
 func _planet_destroyed():
 	aiming = true

@@ -10,6 +10,8 @@ var player_dest: bool = false
 
 @onready var camera: Camera2D = $Camera2D
 
+var endScene: PackedScene = preload("res://Scenes/end_screen.tscn")
+
 var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
 
 @onready var level_node: Node2D = $Level
@@ -23,9 +25,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var planets: Array[Node] = get_tree().get_nodes_in_group("planet")
 	if planets.size() == 0 and curr_state == States.states.Level:
-		current_level += 1
-		if current_level > 6:
-			get_tree().quit()
+		if current_level > 5:
+			var endScreen: Control = endScene.instantiate()
+			add_child(endScreen)
+			curr_state = States.states.EndScreen
+		else:
+			current_level += 1
+			#get_tree().quit()
 		level_node.get_child(0).queue_free()
 		var curr_level = levels[current_level-1].instantiate()
 		level_node.add_child(curr_level)
@@ -55,8 +61,6 @@ func _player_reset():
 	var player: Player = player_scene.instantiate()
 	add_child(player)
 	player.global_position = level.global_position
-	player._planet_destroyed()
-	player.rotation = 0
 	player_dest = false
 	
 func _player_destroyed():

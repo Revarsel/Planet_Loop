@@ -14,11 +14,11 @@ position = Vector2(240, 288)
 res = ExtResource("5_wik46")
 
 [node name="Planet3" parent="." instance=ExtResource("4_rbgxu")]
-position = Vector2(1936, 280)
+position = Vector2(2112, 280)
 res = ExtResource("5_wik46")
 
 [node name="Planet4" parent="." instance=ExtResource("4_rbgxu")]
-position = Vector2(1432, 288)
+position = Vector2(1608, 288)
 res = ExtResource("5_wik46")
 
 [node name="player_pos" type="Marker2D" parent="."]

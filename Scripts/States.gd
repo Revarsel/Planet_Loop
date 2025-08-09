@@ -1,7 +1,7 @@
 extends Node
 
 enum states {
-	MainMenu,Level
+	MainMenu,Level,EndScreen
 }
 
 var curr_state: states = states.MainMenu
