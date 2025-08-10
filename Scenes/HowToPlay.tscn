@@ -218,5 +218,5 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("18_cqyoh")
 
 [connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
