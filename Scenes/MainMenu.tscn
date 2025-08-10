@@ -18,7 +18,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rrcx7"]
 
-[node name="World" type="Control"]
+[node name="World2" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ghw46")
@@ -89,7 +89,7 @@ texture = ExtResource("8_koqhg")
 script = ExtResource("12_rrcx7")
 
 [node name="PlanetLoop2" type="Sprite2D" parent="."]
-position = Vector2(575, 120)
+position = Vector2(575, 200)
 texture = ExtResource("13_fh7cp")
 
 [connection signal="button_down" from="PLAY" to="." method="_on_play_button_down"]
