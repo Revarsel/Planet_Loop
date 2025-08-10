@@ -26,18 +26,17 @@ func _process(delta: float) -> void:
 	var planets: Array[Node] = get_tree().get_nodes_in_group("planet")
 	if planets.size() == 0 and curr_state == States.states.Level:
 		if current_level > 5:
+			level_node.get_child(0).queue_free()
 			var endScreen: Control = endScene.instantiate()
 			add_child(endScreen)
 			curr_state = States.states.EndScreen
+			camera.global_position = Vector2(576, 324)
 			get_tree().get_first_node_in_group("player").queue_free()
 		else:
 			current_level += 1
 			#get_tree().quit()
 		level_node.get_child(0).queue_free()
-		var curr_level = levels[current_level-1].instantiate()
-		level_node.add_child(curr_level)
-		curr_level_reset_position = curr_level.get_node("player_pos").global_position
-		get_tree().get_first_node_in_group("player").global_position = curr_level_reset_position
+		add_level()
 		camera.update_cam()
 		# curr_level.get_node("player_pos").global_position
 
@@ -51,6 +50,12 @@ func reset_level():
 		get_tree().get_first_node_in_group("player").queue_free()
 		_player_reset()
 		camera.update_cam()
+
+func add_level():
+	var curr_level = levels[current_level-1].instantiate()
+	level_node.add_child(curr_level)
+	curr_level_reset_position = curr_level.get_node("player_pos").global_position
+	get_tree().get_first_node_in_group("player").global_position = curr_level_reset_position
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:

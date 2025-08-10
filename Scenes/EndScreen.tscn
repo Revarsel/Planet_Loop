@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cawdp20n63gvl"]
+[gd_scene load_steps=14 format=3 uid="uid://cawdp20n63gvl"]
 
 [ext_resource type="Script" uid="uid://d2x0wnbvoiyi" path="res://Scripts/end_screen.gd" id="1_5fxa3"]
 [ext_resource type="Texture2D" uid="uid://cyflrdrl48n3i" path="res://Assets/MainMenuButton-1.png" id="3_5fxa3"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://ded1u0ce5wuw1" path="res://Scripts/satellite_1_copy_2.gd" id="12_vdntk"]
 [ext_resource type="Texture2D" uid="uid://dwqx31timktcm" path="res://Assets/Cleared the game.png" id="13_nhi40"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0r6p1"]
+
 [node name="World" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -25,6 +27,7 @@ offset_left = 176.0
 offset_top = 264.0
 offset_right = 404.0
 offset_bottom = 392.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0r6p1")
 
 [node name="Sprite2D" type="Sprite2D" parent="MainMenu"]
 position = Vector2(114, 63.8337)
@@ -38,6 +41,7 @@ offset_left = 744.0
 offset_top = 264.0
 offset_right = 972.0
 offset_bottom = 392.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0r6p1")
 
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
 position = Vector2(114, 64)

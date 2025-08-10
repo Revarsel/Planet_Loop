@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://7yprraq7avv3" path="res://Scripts/main_menu.gd" id="1_ghw46"]
 [ext_resource type="Texture2D" uid="uid://lek1bbw8lbit" path="res://Assets/PlayButton-1.png" id="2_8saeu"]
-[ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8um5k"]
 [ext_resource type="Texture2D" uid="uid://bg84qhumc3j6e" path="res://Assets/ExitButton-1.png" id="3_ghw46"]
 [ext_resource type="Texture2D" uid="uid://vbv1m5pourxl" path="res://Assets/Mars2-Copy-2-Scaled.png" id="5_df05h"]
 [ext_resource type="Texture2D" uid="uid://7aja1kvvxvfq" path="res://Assets/HowToPlay-Button.png" id="5_fh7cp"]
@@ -14,33 +13,14 @@
 [ext_resource type="Script" uid="uid://ch5ltyk5nqtxr" path="res://Scripts/earth_2.gd" id="9_loo7a"]
 [ext_resource type="Script" uid="uid://bjskfvm71mle5" path="res://Scripts/satelliteOriginal.gd" id="12_rrcx7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
-shader = ExtResource("2_8um5k")
-shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fh7cp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rrcx7"]
 
 [node name="World" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ghw46")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_fo5ed")
-custom_minimum_size = Vector2(1200, 700)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -424.0
-offset_right = 2020.0
-offset_bottom = 1072.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
 
 [node name="PLAY" type="Button" parent="."]
 z_index = 1
@@ -49,6 +29,7 @@ offset_left = 176.0
 offset_top = 264.0
 offset_right = 404.0
 offset_bottom = 392.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fh7cp")
 
 [node name="Sprite2D" type="Sprite2D" parent="PLAY"]
 position = Vector2(114, 64)
@@ -61,6 +42,7 @@ offset_left = 744.0
 offset_top = 264.0
 offset_right = 972.0
 offset_bottom = 392.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fh7cp")
 
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
 position = Vector2(114, 64)
@@ -73,6 +55,7 @@ offset_left = 484.0
 offset_top = 424.0
 offset_right = 668.0
 offset_bottom = 552.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rrcx7")
 
 [node name="Sprite2D" type="Sprite2D" parent="HowToPlayButton"]
 position = Vector2(92, 64)

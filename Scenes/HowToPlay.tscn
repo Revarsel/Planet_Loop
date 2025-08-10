@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bwvatfjne53cw"]
+[gd_scene load_steps=24 format=3 uid="uid://bwvatfjne53cw"]
 
 [ext_resource type="Script" uid="uid://bp5ichhs23pgs" path="res://Scripts/how_to_play.gd" id="1_nctm4"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_s1303"]
@@ -19,16 +19,21 @@
 [ext_resource type="Texture2D" uid="uid://d4mkboemrkq0q" path="res://Assets/R-key.png" id="23_tvr0b"]
 [ext_resource type="Texture2D" uid="uid://c6odyas68shn6" path="res://Assets/R-key Instruction.png" id="24_uwl0s"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqyoh"]
 shader = ExtResource("2_s1303")
 shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqyoh"]
 
 [sub_resource type="Curve" id="Curve_w7xx1"]
 _data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_s1303"]
-colors = PackedColorArray(0.4187, 0.69809, 0.393224, 1, 0.903935, 0.763777, 0.741653, 1)
+[sub_resource type="Gradient" id="Gradient_icywa"]
+colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
+
+[sub_resource type="Gradient" id="Gradient_cqyoh"]
+colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
 
 [node name="World" type="Control"]
 layout_mode = 3
@@ -36,7 +41,7 @@ anchors_preset = 0
 script = ExtResource("1_nctm4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_fo5ed")
+material = SubResource("ShaderMaterial_cqyoh")
 custom_minimum_size = Vector2(1200, 700)
 layout_mode = 1
 anchors_preset = 8
@@ -44,14 +49,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -504.0
-offset_top = -184.0
-offset_right = 2116.0
-offset_bottom = 1312.0
+offset_left = -45.0
+offset_top = -17.0
+offset_right = 1155.0
+offset_bottom = 683.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
 
 [node name="MainMenu" type="Button" parent="."]
 z_index = 1
@@ -61,6 +64,7 @@ offset_top = 520.0
 offset_right = 676.0
 offset_bottom = 648.0
 scale = Vector2(0.76, 0.76)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cqyoh")
 
 [node name="Sprite2D" type="Sprite2D" parent="MainMenu"]
 position = Vector2(114, 63.8337)
@@ -79,7 +83,7 @@ rotation = -1.5708
 scale = Vector2(50, 50)
 points = PackedVector2Array(0, 0, 114, 0)
 width = 3.0
-default_color = Color(0.184, 0.184, 0.184, 0.669)
+default_color = Color(0.184, 0.184, 0.184, 0.862)
 
 [node name="Line2D" type="Line2D" parent="Player"]
 rotation = -1.5708
@@ -87,7 +91,7 @@ scale = Vector2(50, 50)
 points = PackedVector2Array(0, 0, 62.9325, 0.707336)
 width = 5.0
 width_curve = SubResource("Curve_w7xx1")
-gradient = SubResource("Gradient_s1303")
+gradient = SubResource("Gradient_icywa")
 
 [node name="Player2" type="Sprite2D" parent="."]
 position = Vector2(200, 150)
@@ -110,7 +114,7 @@ scale = Vector2(83.9174, 50)
 points = PackedVector2Array(0, 0, 62.9325, 0.707336)
 width = 5.0
 width_curve = SubResource("Curve_w7xx1")
-gradient = SubResource("Gradient_s1303")
+gradient = SubResource("Gradient_cqyoh")
 
 [node name="HowToPlayText" type="Sprite2D" parent="."]
 position = Vector2(600, 40)

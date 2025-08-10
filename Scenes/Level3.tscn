@@ -1,5 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c715rxaflusdd"]
+[gd_scene load_steps=5 format=3 uid="uid://c715rxaflusdd"]
 
+[ext_resource type="Resource" uid="uid://dijs1qq1y05i1" path="res://Assets/Earth2.tres" id="3_7tk33"]
+[ext_resource type="Resource" uid="uid://cpgl4bxh62l87" path="res://Assets/Earth.tres" id="4_44apn"]
 [ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="4_cp0jt"]
 [ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="5_p6pjf"]
 
@@ -11,11 +13,11 @@ res = ExtResource("5_p6pjf")
 
 [node name="Planet2" parent="." instance=ExtResource("4_cp0jt")]
 position = Vector2(1048, 654)
-res = ExtResource("5_p6pjf")
+res = ExtResource("3_7tk33")
 
 [node name="Planet3" parent="." instance=ExtResource("4_cp0jt")]
 position = Vector2(1720, 328)
-res = ExtResource("5_p6pjf")
+res = ExtResource("4_44apn")
 
 [node name="player_pos" type="Marker2D" parent="."]
 position = Vector2(476, 578)

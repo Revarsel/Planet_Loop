@@ -10,6 +10,13 @@ var contacted: bool = false
 
 @export var throw_strength: int = 2000
 
+@onready var Explosion: AudioStreamPlayer = $Explosion
+@onready var thruster: AudioStreamPlayer = $Thruster
+
+@onready var thrust_Particle: GPUParticles2D = $Sprite2D/ThrustParticle
+@onready var crash1: GPUParticles2D = $Sprite2D/Crash1
+@onready var crash2: GPUParticles2D = $Sprite2D/Crash2
+
 @onready var line: Line2D = $Line2D
 @onready var line1: Line2D = $Line2D2
 @onready var sprite: Sprite2D = $Sprite2D
@@ -33,7 +40,18 @@ func _process(delta: float) -> void:
 		sprite.rotation = linear_velocity.angle() + PI/2
 		
 		if !aiming:
+			if contact_monitor == false:
+				thrust_Particle.emitting = false
+			else:
+				thrust_Particle.emitting = true
+			thruster.volume_db = lerpf(thruster.volume_db, -10, exp(-50 * delta))
+			thruster.pitch_scale = clampf(linear_velocity.length()/950, 0.35, 1)
+
+			if !thruster.playing and contact_monitor:
+				thruster.play()
 			return
+		thrust_Particle.emitting = false
+		thruster.volume_db = lerpf(thruster.volume_db, -80, exp(-300 * delta))
 		var mouse_click = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 		var mouse_coord = get_global_mouse_position()
 		
@@ -50,6 +68,7 @@ func _process(delta: float) -> void:
 		line1.set_point_position(0, min_line_length)
 		line1.set_point_position(1, max_line_length)
 		if mouse_click:
+			$Throw.play()
 			freeze = false
 			apply_force(mouse_dist.normalized() * strength * 10 * throw_strength)
 			line.visible = false
@@ -63,7 +82,12 @@ func _planet_destroyed():
 	freeze = true
 
 func _on_body_entered(body: Node):
+	thruster.stop()
+	thrust_Particle.emitting = false
+	crash1.emitting = true
+	crash2.emitting = true
 	if entered == true:
 		return
 	entered = true
 	Signals.emit_player_destroyed()
+	Explosion.play()

@@ -19,8 +19,8 @@ func _on_play_pressed() -> void:
 
 	var player: Player = load("res://Scenes/player.tscn").instantiate()
 	
-	get_node("/root/World/Level").add_child(level)
 	get_node("/root/World").add_child(player)
+	get_node("/root/World").add_level()
 	get_node("/root/World").curr_state = States.states.Level
 	
 	player.global_position = level.get_node("player_pos").global_position

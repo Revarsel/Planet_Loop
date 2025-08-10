@@ -1,16 +1,70 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1v78v08q0431"]
+[gd_scene load_steps=19 format=3 uid="uid://d1v78v08q0431"]
 
 [ext_resource type="Script" uid="uid://dmf72nab1roco" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="2_cvnsp"]
+[ext_resource type="AudioStream" uid="uid://dujv70vy2jcbo" path="res://Assets/Sounds/crash.ogg" id="3_fkybt"]
+[ext_resource type="AudioStream" uid="uid://cw5jinxlvgtl5" path="res://Assets/Sounds/Ascend_Static_Distortion_4.ogg" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://cve8cpqwg8jcm" path="res://Assets/Sounds/throw.ogg" id="5_fkybt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fkybt"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Gradient" id="Gradient_fkybt"]
+offsets = PackedFloat32Array(0, 0.464088, 0.955801)
+colors = PackedColorArray(0.368695, 0.304403, 0.192717, 1, 0.829035, 0.506657, 0.291291, 1, 0.96214, 0.819788, 0.318088, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x3wgy"]
+gradient = SubResource("Gradient_fkybt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x3wgy"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 60.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_x3wgy")
+
+[sub_resource type="Gradient" id="Gradient_3smsa"]
+offsets = PackedFloat32Array(0, 0.58011)
+colors = PackedColorArray(0.203922, 0.176471, 0.14902, 1, 0.6, 0.6, 0.6, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8erm5"]
+gradient = SubResource("Gradient_3smsa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fkybt"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_8erm5")
+
+[sub_resource type="Gradient" id="Gradient_x3wgy"]
+offsets = PackedFloat32Array(0, 0.646409)
+colors = PackedColorArray(0.202328, 0.174548, 0.150219, 1, 0.655733, 0.749416, 0.768006, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3smsa"]
+gradient = SubResource("Gradient_x3wgy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8erm5"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+initial_velocity_min = 35.0
+initial_velocity_max = 65.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_3smsa")
 
 [sub_resource type="Curve" id="Curve_v0iea"]
 _data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_v0iea"]
-colors = PackedColorArray(0.4187, 0.69809, 0.393224, 1, 0.903935, 0.763777, 0.741653, 1)
+colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
 
 [node name="Player" type="RigidBody2D" groups=["player"]]
 collision_layer = 3
@@ -26,13 +80,62 @@ rotation = 1.5708
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_cvnsp")
 
+[node name="ThrustParticle" type="GPUParticles2D" parent="Sprite2D"]
+position = Vector2(0.00217199, 600)
+rotation = -1.5708
+scale = Vector2(50, 50)
+emitting = false
+amount = 16
+texture = SubResource("ViewportTexture_fkybt")
+process_material = SubResource("ParticleProcessMaterial_x3wgy")
+
+[node name="Crash1" type="GPUParticles2D" parent="Sprite2D"]
+rotation = -1.5708
+scale = Vector2(50, 50)
+emitting = false
+amount = 128
+texture = SubResource("ViewportTexture_fkybt")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_fkybt")
+
+[node name="Crash2" type="GPUParticles2D" parent="Sprite2D"]
+rotation = -1.5708
+scale = Vector2(50, 50)
+emitting = false
+amount = 32
+texture = SubResource("ViewportTexture_fkybt")
+lifetime = 2.5
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_8erm5")
+
 [node name="Line2D2" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 114, 0)
 width = 3.0
-default_color = Color(0.184, 0.184, 0.184, 0.669)
+default_color = Color(0.184, 0.184, 0.184, 0.906)
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 94, 0)
 width = 5.0
 width_curve = SubResource("Curve_v0iea")
 gradient = SubResource("Gradient_v0iea")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fkybt")
+
+[node name="Thruster" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vgqql")
+volume_db = -10.0
+parameters/looping = true
+
+[node name="Throw" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fkybt")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(10, 10)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+offset_right = 10.0
+offset_bottom = 10.0
