@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5brmtrmjh38r"]
+[gd_scene load_steps=16 format=3 uid="uid://c5brmtrmjh38r"]
 
 [ext_resource type="Script" uid="uid://7yprraq7avv3" path="res://Scripts/main_menu.gd" id="1_ghw46"]
 [ext_resource type="Texture2D" uid="uid://lek1bbw8lbit" path="res://Assets/PlayButton-1.png" id="2_8saeu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="8_koqhg"]
 [ext_resource type="Script" uid="uid://ch5ltyk5nqtxr" path="res://Scripts/earth_2.gd" id="9_loo7a"]
 [ext_resource type="Script" uid="uid://bjskfvm71mle5" path="res://Scripts/satelliteOriginal.gd" id="12_rrcx7"]
+[ext_resource type="Texture2D" uid="uid://dmhvh4i1ogsok" path="res://Assets/PlanetLoop2.png" id="14_8e205"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8um5k")
@@ -46,9 +47,9 @@ size_flags_vertical = 6
 z_index = 1
 layout_mode = 0
 offset_left = 176.0
-offset_top = 264.0
+offset_top = 424.0
 offset_right = 404.0
-offset_bottom = 392.0
+offset_bottom = 552.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PLAY"]
 position = Vector2(114, 64)
@@ -58,9 +59,9 @@ texture = ExtResource("2_8saeu")
 z_index = 1
 layout_mode = 0
 offset_left = 744.0
-offset_top = 264.0
+offset_top = 424.0
 offset_right = 972.0
-offset_bottom = 392.0
+offset_bottom = 552.0
 
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
 position = Vector2(114, 64)
@@ -98,11 +99,15 @@ texture = ExtResource("7_xim88")
 script = ExtResource("9_loo7a")
 
 [node name="Satellite-1-copy-2" type="Sprite2D" parent="."]
-position = Vector2(573.965, 237.77)
+position = Vector2(150, 320)
 rotation = -0.855211
 scale = Vector2(0.17, 0.17)
 texture = ExtResource("8_koqhg")
 script = ExtResource("12_rrcx7")
+
+[node name="PlanetLoop2" type="Sprite2D" parent="."]
+position = Vector2(575, 120)
+texture = ExtResource("14_8e205")
 
 [connection signal="button_down" from="PLAY" to="." method="_on_play_button_down"]
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]

@@ -30,7 +30,7 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_s1303"]
 colors = PackedColorArray(0.4187, 0.69809, 0.393224, 1, 0.903935, 0.763777, 0.741653, 1)
 
-[node name="World" type="Control"]
+[node name="World2" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_nctm4")
@@ -218,5 +218,5 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("18_cqyoh")
 
 [connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
