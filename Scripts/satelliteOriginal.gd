@@ -5,10 +5,10 @@ var max_angle = deg_to_rad(90)
 var direction = Vector2(-1, 1)
 var s = false
 var fac = 3.5
-var maxx = 200
-var minx = 150
-var maxy = 370
-var miny = 320
+var maxx = 600
+var minx = 550
+var maxy = 263
+var miny = 213
 func _process(delta):
 	rotation += delta*0.01
 	if s == false:
