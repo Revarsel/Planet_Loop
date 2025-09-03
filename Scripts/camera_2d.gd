@@ -11,14 +11,17 @@ var f_pressed: bool = false
 
 var lerp_speed: float = 75
 
+var main_pos: Vector2 = Vector2(576, 324)
+
 var update: bool = true
+var paused: bool = false
 
 func _ready() -> void:
 	Signals.player_reset.connect(update_cam)
 
 func _physics_process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("player")
-	if player == null:
+	if player == null or paused:
 		return
 		
 	if player.aiming:
@@ -57,4 +60,9 @@ func _physics_process(delta: float) -> void:
 	mouse_pos = curr_mouse_pos
 
 func update_cam():
+	paused = false
 	update = true
+
+func reset_cam():
+	paused = true
+	global_position = main_pos

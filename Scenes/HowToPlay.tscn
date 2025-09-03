@@ -41,6 +41,7 @@ anchors_preset = 0
 script = ExtResource("1_nctm4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_cqyoh")
 custom_minimum_size = Vector2(1200, 700)
 layout_mode = 1
@@ -222,5 +223,5 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("18_cqyoh")
 
 [connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]

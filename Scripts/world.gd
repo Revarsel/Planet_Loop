@@ -4,44 +4,55 @@ var current_level: = 1
 var curr_level_reset_position: Vector2
 var curr_planets: int
 
-@onready var curr_state: States.states = States.curr_state
-
 var player_dest: bool = false
 
 @onready var camera: Camera2D = $Camera2D
 
 var endScene: PackedScene = preload("res://Scenes/EndScreen.tscn")
 
-var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
+@onready var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
 
 @onready var level_node: Node2D = $Level
 @onready var player_scene: = preload("res://Scenes/player.tscn")
+@onready var pause_scene: = preload("res://Scenes/Pause.tscn")
 
 func _ready() -> void:
 	Signals.planet_destroyed.connect(_planet_destroyed)
 	Signals.player_reset.connect(_player_reset)
 	Signals.player_destroyed.connect(_player_destroyed)
+	Engine.time_scale = 2
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Level and !player_dest:
+		var pause = pause_scene.instantiate()
+		add_child(pause)
+		States.curr_state = States.states.Pause
+		camera.reset_cam()
+		Signals.emit_paused()
+
+	elif Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Pause:
+		get_tree().get_first_node_in_group("pause").queue_free()
+		States.curr_state = States.states.Level
+		camera.update_cam()
+		Signals.emit_unpaused()
+		
 	var planets: Array[Node] = get_tree().get_nodes_in_group("planet")
-	if planets.size() == 0 and curr_state == States.states.Level:
+	if planets.size() == 0 and States.curr_state == States.states.Level:
 		if current_level > 5:
 			level_node.get_child(0).queue_free()
 			var endScreen: Control = endScene.instantiate()
 			add_child(endScreen)
-			curr_state = States.states.EndScreen
-			camera.global_position = Vector2(576, 324)
+			States.curr_state = States.states.EndScreen
+			camera.reset_cam()
 			get_tree().get_first_node_in_group("player").queue_free()
 		else:
 			current_level += 1
-			#get_tree().quit()
 		level_node.get_child(0).queue_free()
 		add_level()
 		camera.update_cam()
-		# curr_level.get_node("player_pos").global_position
 
 func reset_level():
-	if curr_state == States.states.Level:
+	if States.curr_state == States.states.Level:
 		var curr_level1 = level_node.get_child(0)
 		curr_level_reset_position = curr_level1.get_node("player_pos").global_position
 		level_node.get_child(0).queue_free()

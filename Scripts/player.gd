@@ -8,6 +8,8 @@ var line_max = 150
 var entered: bool = false
 var contacted: bool = false
 
+var curr_velocity: Vector2 = Vector2.ZERO
+
 @export var throw_strength: int = 2000
 
 @onready var Explosion: AudioStreamPlayer = $Explosion
@@ -27,6 +29,8 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	max_contacts_reported = 10
 	Signals.planet_destroyed.connect(_planet_destroyed)
+	Signals.paused.connect(_paused)
+	Signals.unpaused.connect(_unpaused)
 
 func _process(delta: float) -> void:
 	if entered:
@@ -49,6 +53,8 @@ func _process(delta: float) -> void:
 
 			if !thruster.playing and contact_monitor:
 				thruster.play()
+			return
+		if States.curr_state == States.states.Pause:
 			return
 		thrust_Particle.emitting = false
 		thruster.volume_db = lerpf(thruster.volume_db, -80, exp(-300 * delta))
@@ -91,3 +97,11 @@ func _on_body_entered(body: Node):
 	entered = true
 	Signals.emit_player_destroyed()
 	Explosion.play()
+
+func _paused():
+	curr_velocity = linear_velocity
+	freeze = true
+
+func _unpaused():
+	freeze = false
+	linear_velocity = curr_velocity

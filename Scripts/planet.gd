@@ -35,17 +35,18 @@ func _ready() -> void:
 	area.body_exited.connect(_on_body_exited)
 	Signals.player_destroyed.connect(_player_destroyed)
 	Signals.player_reset.connect(_player_reset)
+	Signals.paused.connect(_paused)
+	Signals.unpaused.connect(_unpaused)
 	_update()
 
-func _process(delta: float) -> void:
-	Engine.time_scale = 2
+func _physics_process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("player")
 	if player != null:
 		if player.aiming:
 			return
 		var distance: = global_position - player.global_position
 		var length: float = max(distance.length(), 250)
-		var force: = gravity * 2000 / (length * length)
+		var force: = gravity * 2000 * 2.5 / (length * length)
 		player.apply_force(distance.normalized() * force) # * int(length < max_distance))
 		if calculate:
 			curr_angle = abs((player.global_position - global_position).angle())
@@ -89,3 +90,9 @@ func _player_reset():
 	player_dead = false
 	total_angle = 0
 	gravity = gravity_halved * 2
+
+func _paused():
+	set_physics_process(false)
+
+func _unpaused():
+	set_physics_process(true)

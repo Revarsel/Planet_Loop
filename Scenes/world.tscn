@@ -10,6 +10,7 @@ shader = ExtResource("2_8j60k")
 shader_parameter/bg_color = Vector4(0, 0, 0, 0)
 
 [node name="World" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_fo5ed")
 
 [node name="Camera2D" type="Camera2D" parent="."]

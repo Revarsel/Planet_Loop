@@ -78,7 +78,7 @@ scale = Vector2(0.73, 0.73)
 texture = ExtResource("13_nhi40")
 
 [connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
 [connection signal="button_down" from="EXIT" to="." method="_on_exit_button_down"]
 [connection signal="button_up" from="EXIT" to="." method="_on_exit_button_up"]
