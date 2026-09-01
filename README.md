@@ -87,26 +87,9 @@ The goal is to figure out the physics and learn how to make the perfect shot.
 
 ---
 
-## 🎬 Gameplay
-
-> **Add a gameplay GIF here!**
-
-A short gameplay GIF is recommended here so visitors can immediately understand the game without having to download it.
-
-```markdown
-![Planet Loop Gameplay](assets/gameplay.gif)
-```
-
-You can replace the path above with wherever you store your GIF.
-
-### 📸 Screenshots
-
-> Add screenshots of the game here.
-
-```markdown
-![Gameplay Screenshot](assets/screenshot1.png)
-![Orbiting a Planet](assets/screenshot2.png)
-```
+<img width="1147" height="651" alt="Screenshot 2026-09-01 225125" src="https://github.com/user-attachments/assets/7c12da9b-3061-4f49-8da5-b7c0af101f01" />
+<img width="1149" height="647" alt="Screenshot 2026-09-01 225108" src="https://github.com/user-attachments/assets/f9017c98-4ced-4103-8483-990e8d179c31" />
+<img width="1140" height="640" alt="Screenshot 2026-09-01 225138" src="https://github.com/user-attachments/assets/4b5de7d5-d227-4cc1-ab28-4f01abb5662f" />
 
 ---
 
