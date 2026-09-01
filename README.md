@@ -1,3 +1,5 @@
+![PLANET LOOP!](.IchioBanner.png)
+
 # 🪐 Planet Loop
 
 > **Shoot. Orbit. Loop. Repeat.**
