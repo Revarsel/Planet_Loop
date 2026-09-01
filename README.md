@@ -132,5 +132,5 @@ Plan on adding more levels, features, etc in the future.
 </p>
 
 <p align="center">
-  Made with ❤️ and Godot
+  Made with Godot!
 </p>
