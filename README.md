@@ -1,4 +1,4 @@
-![PLANET LOOP!](.IchioBanner.png)
+![PLANET LOOP!](IchioBanner.png)
 
 # 🪐 Planet Loop
 
