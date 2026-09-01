@@ -7,12 +7,14 @@ var aiming: bool = true
 var line_max = 150
 var entered: bool = false
 var contacted: bool = false
+var paused: bool = false
 
 var curr_velocity: Vector2 = Vector2.ZERO
 
 @export var throw_strength: int = 2000
 
 @onready var Explosion: AudioStreamPlayer = $Explosion
+@onready var Explosion2: AudioStreamPlayer = $Explosion2
 @onready var thruster: AudioStreamPlayer = $Thruster
 
 @onready var thrust_Particle: GPUParticles2D = $Sprite2D/ThrustParticle
@@ -33,9 +35,12 @@ func _ready() -> void:
 	Signals.unpaused.connect(_unpaused)
 
 func _process(delta: float) -> void:
+	if paused:
+		return
 	if entered:
 		entered = false
 		contact_monitor = false
+		thrust_Particle.emitting = false
 		await get_tree().create_timer(4).timeout
 		Signals.emit_player_reset()
 		queue_free()
@@ -44,10 +49,8 @@ func _process(delta: float) -> void:
 		sprite.rotation = linear_velocity.angle() + PI/2
 		
 		if !aiming:
-			if contact_monitor == false:
-				thrust_Particle.emitting = false
-			else:
-				thrust_Particle.emitting = true
+			#if contact_monitor:
+				#thrust_Particle.emitting = true
 			thruster.volume_db = lerpf(thruster.volume_db, -10, exp(-50 * delta))
 			thruster.pitch_scale = clampf(linear_velocity.length()/950, 0.35, 1)
 
@@ -55,6 +58,7 @@ func _process(delta: float) -> void:
 				thruster.play()
 			return
 		if States.curr_state == States.states.Pause:
+			sprite.rotation = linear_velocity.angle() + PI/2
 			return
 		thrust_Particle.emitting = false
 		thruster.volume_db = lerpf(thruster.volume_db, -80, exp(-300 * delta))
@@ -80,6 +84,7 @@ func _process(delta: float) -> void:
 			line.visible = false
 			line1.visible = false
 			aiming = false
+			thrust_Particle.emitting = true
 
 func _planet_destroyed():
 	aiming = true
@@ -88,20 +93,33 @@ func _planet_destroyed():
 	freeze = true
 
 func _on_body_entered(body: Node):
-	thruster.stop()
+	fade_volume(2)
 	thrust_Particle.emitting = false
-	crash1.emitting = true
-	crash2.emitting = true
 	if entered == true:
 		return
+	crash1.emitting = true
+	crash2.emitting = true
 	entered = true
 	Signals.emit_player_destroyed()
-	Explosion.play()
+	Explosion.play(0.05)
+	Explosion2.play(0.06)
 
 func _paused():
 	curr_velocity = linear_velocity
 	freeze = true
+	paused = true
 
 func _unpaused():
 	freeze = false
+	paused = false
 	linear_velocity = curr_velocity
+
+func fade_volume(duration: float) -> void:
+	var target_db = -50
+	
+	var tween = create_tween()
+	
+	tween.tween_property(thruster, "volume_db", target_db, 3)
+	await tween.finished
+	#contact_monitor = true
+	thruster.stop()

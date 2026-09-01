@@ -8,6 +8,10 @@ const MainU = preload("res://Assets/MainMenuButton-1.png")
 const ExitP = preload("res://Assets/ExitButton-1-Pressed.png")
 const ExitU = preload("res://Assets/ExitButton-1.png")
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		queue_free()
+
 func _on_main_menu_pressed() -> void:
 	MainPressed.texture = MainU
 	

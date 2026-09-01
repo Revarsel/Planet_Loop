@@ -22,7 +22,7 @@ func _on_exit_button_down() -> void:
 func _on_how_to_play_button_pressed() -> void:
 	HowToPlayPressed.texture = HowToPlayU
 	var how_to_play = load("res://Scenes/HowToPlay.tscn").instantiate()
-	get_node("/root/World").add_child(how_to_play)
+	get_node("/root/World/Screens").add_child(how_to_play)
 	if States.curr_state == States.states.MainMenu:
 		queue_free()
 	else:

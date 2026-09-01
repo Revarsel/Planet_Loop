@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1v78v08q0431"]
+[gd_scene load_steps=21 format=3 uid="uid://d1v78v08q0431"]
 
 [ext_resource type="Script" uid="uid://dmf72nab1roco" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="2_cvnsp"]
-[ext_resource type="AudioStream" uid="uid://dujv70vy2jcbo" path="res://Assets/Sounds/crash.ogg" id="3_fkybt"]
+[ext_resource type="Texture2D" uid="uid://cntw03ycg2gt5" path="res://Assets/particle_curve.tres" id="3_x3wgy"]
 [ext_resource type="AudioStream" uid="uid://cw5jinxlvgtl5" path="res://Assets/Sounds/Ascend_Static_Distortion_4.ogg" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://bkkdk6g7agspg" path="res://Assets/Sounds/dragon-studio-car-crash-sound-376882.mp3" id="4_x3wgy"]
+[ext_resource type="AudioStream" uid="uid://byach6j6rlw05" path="res://Assets/Sounds/u_mgq59j5ayf-sound-effect-car-crash-394903.mp3" id="5_3smsa"]
 [ext_resource type="AudioStream" uid="uid://cve8cpqwg8jcm" path="res://Assets/Sounds/throw.ogg" id="5_fkybt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
@@ -26,6 +28,7 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_x3wgy")
+alpha_curve = ExtResource("3_x3wgy")
 
 [sub_resource type="Gradient" id="Gradient_3smsa"]
 offsets = PackedFloat32Array(0, 0.58011)
@@ -42,6 +45,7 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_8erm5")
+alpha_curve = ExtResource("3_x3wgy")
 
 [sub_resource type="Gradient" id="Gradient_x3wgy"]
 offsets = PackedFloat32Array(0, 0.646409)
@@ -58,13 +62,14 @@ initial_velocity_min = 35.0
 initial_velocity_max = 65.0
 gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_3smsa")
+alpha_curve = ExtResource("3_x3wgy")
 
 [sub_resource type="Curve" id="Curve_v0iea"]
 _data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_v0iea"]
-colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
+colors = PackedColorArray(0.372549, 0.803922, 0.894118, 1, 1, 1, 1, 1)
 
 [node name="Player" type="RigidBody2D" groups=["player"]]
 collision_layer = 3
@@ -123,12 +128,14 @@ width_curve = SubResource("Curve_v0iea")
 gradient = SubResource("Gradient_v0iea")
 
 [node name="Explosion" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_fkybt")
+stream = ExtResource("4_x3wgy")
+
+[node name="Explosion2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3smsa")
 
 [node name="Thruster" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_vgqql")
 volume_db = -10.0
-parameters/looping = true
 
 [node name="Throw" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fkybt")

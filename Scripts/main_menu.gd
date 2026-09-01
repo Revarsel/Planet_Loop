@@ -30,7 +30,6 @@ func _on_play_pressed() -> void:
 
 func _on_exit_button_up() -> void:
 	ExitPressed.texture = ExitU
-	get_tree().quit()
 
 func _on_play_button_down() -> void:
 	PlayPressed.texture = PlayP
@@ -41,7 +40,7 @@ func _on_exit_button_down() -> void:
 func _on_how_to_play_button_pressed() -> void:
 	HowToPlayPressed.texture = HowToPlayU
 	var how_to_play = load("res://Scenes/HowToPlay.tscn").instantiate()
-	get_node("/root/World").add_child(how_to_play)
+	get_node("/root/World/Screens").add_child(how_to_play)
 	if States.curr_state == States.states.MainMenu:
 		queue_free()
 	else:
@@ -49,3 +48,15 @@ func _on_how_to_play_button_pressed() -> void:
 
 func _on_how_to_play_button_button_down() -> void:
 	HowToPlayPressed.texture = HowToPlayP
+
+
+func _on_play_button_up() -> void:
+	PlayPressed.texture = PlayU
+
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_how_to_play_button_button_up() -> void:
+	HowToPlayPressed.texture = HowToPlayU

@@ -7,3 +7,4 @@
 script = ExtResource("1_hjybj")
 texture = ExtResource("2_hjybj")
 scale = 0.13
+particle = "BlueGreen"

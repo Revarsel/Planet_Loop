@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://tcadrh1lebf8"]
+
+[ext_resource type="Script" uid="uid://bqfn8wyiajffv" path="res://Scripts/planet_death.gd" id="1_gme4a"]
+
+[sub_resource type="Curve" id="Curve_dxhrg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.57822, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gme4a"]
+curve = SubResource("Curve_dxhrg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dxhrg"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 15.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+radial_velocity_min = 100.0
+radial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 10.0
+scale_min = 7.5
+scale_max = 7.5
+color = Color(0.372549, 0.803922, 0.894118, 1)
+alpha_curve = SubResource("CurveTexture_gme4a")
+
+[node name="PlanetDeath_Blue" type="GPUParticles2D"]
+emitting = false
+amount = 256
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_dxhrg")
+script = ExtResource("1_gme4a")

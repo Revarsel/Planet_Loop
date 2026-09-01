@@ -13,6 +13,8 @@ var player: RigidBody2D
 @onready var blue_border = $Blue_Border
 @onready var red_border = $Red_Border
 
+var particle_scene: PackedScene
+
 var calculate: bool = false
 var curr_angle: float = 0
 var prev_angle: float = 0
@@ -29,6 +31,11 @@ func _update():
 	if res != null:
 		sprite.texture = res.texture
 		sprite.scale = Vector2(res.scale, res.scale)
+		print(res.particle)
+		if res.particle == "Red":
+			particle_scene = load("res://Scenes/planet_death_red.tscn")
+		else:
+			particle_scene = load("res://Scenes/planet_death.tscn")
 
 func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
@@ -60,6 +67,9 @@ func _physics_process(delta: float) -> void:
 			
 			if total_angle > TAU:
 				Signals.emit_planet_destroyed()
+				var particle = particle_scene.instantiate()
+				particle.global_position = global_position
+				get_node("/root/World/Particles").add_child(particle)
 				queue_free()
 		else:
 			reset_borders()

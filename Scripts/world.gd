@@ -13,6 +13,7 @@ var endScene: PackedScene = preload("res://Scenes/EndScreen.tscn")
 @onready var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
 
 @onready var level_node: Node2D = $Level
+@onready var particles_node: Node2D = $Particles
 @onready var player_scene: = preload("res://Scenes/player.tscn")
 @onready var pause_scene: = preload("res://Scenes/Pause.tscn")
 
@@ -25,16 +26,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Level and !player_dest:
 		var pause = pause_scene.instantiate()
-		add_child(pause)
+		$Screens.add_child(pause)
 		States.curr_state = States.states.Pause
-		camera.reset_cam()
+		camera.pause_cam()
 		Signals.emit_paused()
 
 	elif Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Pause:
-		get_tree().get_first_node_in_group("pause").queue_free()
-		States.curr_state = States.states.Level
-		camera.update_cam()
-		Signals.emit_unpaused()
+		var paused_node = get_tree().get_first_node_in_group("pause")
+		var screens = get_node("/root/World/Screens")
+		if screens.get_child_count() == 1:
+			paused_node.queue_free()
+			States.curr_state = States.states.Level
+			camera.update_cam()
+			Signals.emit_unpaused()
+		else:
+			screens.get_child(-1).queue_free()
+			screens.get_child(-2).visible = true
 		
 	var planets: Array[Node] = get_tree().get_nodes_in_group("planet")
 	if planets.size() == 0 and States.curr_state == States.states.Level:
@@ -49,6 +56,8 @@ func _process(delta: float) -> void:
 			current_level += 1
 		level_node.get_child(0).queue_free()
 		add_level()
+		for i in particles_node.get_children():
+			i.queue_free()
 		camera.update_cam()
 
 func reset_level():

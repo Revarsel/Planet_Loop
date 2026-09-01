@@ -40,9 +40,9 @@ texture = ExtResource("2_8saeu")
 z_index = 1
 layout_mode = 0
 offset_left = 744.0
-offset_top = 424.0
+offset_top = 426.0
 offset_right = 972.0
-offset_bottom = 552.0
+offset_bottom = 554.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fh7cp")
 
 [node name="Sprite2D" type="Sprite2D" parent="EXIT"]
@@ -52,14 +52,15 @@ texture = ExtResource("3_ghw46")
 [node name="HowToPlayButton" type="Button" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 484.0
-offset_top = 424.0
-offset_right = 668.0
-offset_bottom = 552.0
+offset_left = 480.0
+offset_top = 420.0
+offset_right = 672.0
+offset_bottom = 556.0
+pivot_offset = Vector2(92, 64)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rrcx7")
 
 [node name="Sprite2D" type="Sprite2D" parent="HowToPlayButton"]
-position = Vector2(92, 64)
+position = Vector2(96, 68)
 scale = Vector2(0.54, 0.54)
 texture = ExtResource("5_fh7cp")
 
@@ -93,8 +94,11 @@ position = Vector2(575, 200)
 texture = ExtResource("13_fh7cp")
 
 [connection signal="button_down" from="PLAY" to="." method="_on_play_button_down"]
+[connection signal="button_up" from="PLAY" to="." method="_on_play_button_up"]
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]
 [connection signal="button_down" from="EXIT" to="." method="_on_exit_button_down"]
 [connection signal="button_up" from="EXIT" to="." method="_on_exit_button_up"]
+[connection signal="pressed" from="EXIT" to="." method="_on_exit_pressed"]
 [connection signal="button_down" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
+[connection signal="button_up" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_up"]
 [connection signal="pressed" from="HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]

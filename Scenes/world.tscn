@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs6raedppu003"]
+[gd_scene load_steps=7 format=3 uid="uid://bs6raedppu003"]
 
 [ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_5a7ea"]
 [ext_resource type="Script" uid="uid://bxq11r7j6prky" path="res://Scripts/world.gd" id="1_fo5ed"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8j60k"]
+[ext_resource type="Script" uid="uid://b63ivrkvcsk7q" path="res://Scripts/background_twinkle.gd" id="3_fo5ed"]
 [ext_resource type="PackedScene" uid="uid://c5brmtrmjh38r" path="res://Scenes/MainMenu.tscn" id="5_fo5ed"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8j60k")
 shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+shader_parameter/camera_offset = Vector2(0, 0)
+shader_parameter/parallax_factor = 0.5
 
 [node name="World" type="Node2D"]
 process_mode = 3
@@ -20,7 +23,7 @@ script = ExtResource("1_5a7ea")
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_fo5ed")
 custom_minimum_size = Vector2(1200, 700)
 anchors_preset = 8
@@ -34,7 +37,14 @@ offset_right = 600.0
 offset_bottom = 350.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_fo5ed")
+camera = NodePath("../..")
+parallax_factor = 0.25
 
 [node name="Level" type="Node2D" parent="."]
 
-[node name="MainMenu" parent="." instance=ExtResource("5_fo5ed")]
+[node name="Screens" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="Screens" instance=ExtResource("5_fo5ed")]
+
+[node name="Particles" type="Node2D" parent="."]

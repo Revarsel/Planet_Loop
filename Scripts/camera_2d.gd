@@ -66,3 +66,6 @@ func update_cam():
 func reset_cam():
 	paused = true
 	global_position = main_pos
+
+func pause_cam():
+	paused = true

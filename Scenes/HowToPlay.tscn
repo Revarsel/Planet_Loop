@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bp5ichhs23pgs" path="res://Scripts/how_to_play.gd" id="1_nctm4"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_s1303"]
-[ext_resource type="Texture2D" uid="uid://cyflrdrl48n3i" path="res://Assets/MainMenuButton-1.png" id="3_w7mqw"]
+[ext_resource type="Texture2D" uid="uid://7aja1kvvxvfq" path="res://Assets/HowToPlay-Button.png" id="4_v63ga"]
 [ext_resource type="Texture2D" uid="uid://dt611eo5dj12r" path="res://Assets/Earth-2.png" id="9_2bqsr"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="11_hg86a"]
 [ext_resource type="Texture2D" uid="uid://cp6psojp13jxe" path="res://Assets/HowToPlayText.png" id="14_s1303"]
@@ -22,6 +22,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cqyoh"]
 shader = ExtResource("2_s1303")
 shader_parameter/bg_color = Vector4(0, 0, 0, 0)
+shader_parameter/camera_offset = Vector2(0, 0)
+shader_parameter/parallax_factor = 0.5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqyoh"]
 
@@ -30,10 +32,10 @@ _data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_icywa"]
-colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
+colors = PackedColorArray(0.372549, 0.803922, 0.894118, 1, 0.721569, 0.721569, 0.721569, 1)
 
 [sub_resource type="Gradient" id="Gradient_cqyoh"]
-colors = PackedColorArray(0.721569, 0.721569, 0.721569, 1, 0.372549, 0.803922, 0.894118, 1)
+colors = PackedColorArray(0.372549, 0.803922, 0.894118, 1, 0.721569, 0.721569, 0.721569, 1)
 
 [node name="World" type="Control"]
 layout_mode = 3
@@ -62,15 +64,15 @@ z_index = 1
 layout_mode = 0
 offset_left = 448.0
 offset_top = 520.0
-offset_right = 676.0
-offset_bottom = 648.0
+offset_right = 638.0
+offset_bottom = 656.0
 scale = Vector2(0.76, 0.76)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cqyoh")
 
-[node name="Sprite2D" type="Sprite2D" parent="MainMenu"]
-position = Vector2(114, 63.8337)
-scale = Vector2(0.875, 0.607941)
-texture = ExtResource("3_w7mqw")
+[node name="Sprite2D2" type="Sprite2D" parent="MainMenu"]
+position = Vector2(95, 68)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_v63ga")
 
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(50, 150)
@@ -142,10 +144,9 @@ position = Vector2(792, 200)
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("9_2bqsr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Earth-4"]
-position = Vector2(0.00195313, 0)
+[node name="Sprite2D2" type="Sprite2D" parent="Earth-4"]
 scale = Vector2(2.8985, 2.8985)
-texture = ExtResource("17_icywa")
+texture = ExtResource("18_v63ga")
 
 [node name="Player3" type="Sprite2D" parent="Earth-4"]
 position = Vector2(-933.333, -666.667)
@@ -159,9 +160,8 @@ scale = Vector2(0.06, 0.06)
 texture = ExtResource("9_2bqsr")
 
 [node name="Sprite2D" type="Sprite2D" parent="Earth-5"]
-position = Vector2(0.00195313, 0)
 scale = Vector2(2.8985, 2.8985)
-texture = ExtResource("18_v63ga")
+texture = ExtResource("17_icywa")
 
 [node name="Player3" type="Sprite2D" parent="Earth-5"]
 position = Vector2(-1566.67, -1466.67)
@@ -223,5 +223,6 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("18_cqyoh")
 
 [connection signal="button_down" from="MainMenu" to="." method="_on_main_menu_button_down"]
+[connection signal="button_up" from="MainMenu" to="." method="_on_main_menu_button_up"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="MainMenu" to="." method="_on_play_pressed"]
