@@ -118,10 +118,6 @@ Play it now on Itch!
 
 ---
 
-## 🛠️ Built With Godot
-
----
-
 ## 🚧 Future Improvements
 
 Planet Loop is currently a small game, but I will be working on it time to time.
@@ -136,5 +132,5 @@ Plan on adding more levels, features, etc in the future.
 </p>
 
 <p align="center">
-  Made with ❤️ and Godot for GMTK Game Jam 2025
+  Made with ❤️ and Godot
 </p>
