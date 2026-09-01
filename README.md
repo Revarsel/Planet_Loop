@@ -112,124 +112,21 @@ You can replace the path above with wherever you store your GIF.
 
 ## 🚀 Play the Game
 
-If a playable build is available, download it below:
+Play it now on Itch!
 
-**[▶️ Download / Play Planet Loop](#)**
-
-> Replace the link above with your GitHub Releases page or itch.io page once you have uploaded a build.
-
-For the best GitHub experience, I recommend uploading Windows/Linux builds through **GitHub Releases** rather than putting the executable directly in the repository.
+**[▶️ Download / Play Planet Loop](https://revarsel.itch.io/planet-loop)**
 
 ---
 
-## 🛠️ Built With
-
-* **Godot**
-* **GDScript**
-* 2D physics
-* Custom orbital/planetary gravity mechanics
-
----
-
-## 🧠 How It Works
-
-The main gameplay mechanic revolves around **orbital motion**.
-
-Rather than directly controlling the satellite, the player gives it an initial velocity by launching it toward a planet.
-
-The satellite is then affected by the planet's gravitational force, causing its trajectory to curve.
-
-A successful launch produces a trajectory that allows the satellite to travel around the planet and complete a full rotation.
-
-This makes every shot a small physics puzzle:
-
-> **How much speed do I need, and at what angle?**
-
-Too little or too much velocity can result in a failed orbit, while hitting the planet causes the satellite to reset.
-
----
-
-## 🎮 Game Jam
-
-### GMTK Game Jam 2025
-
-Planet Loop was originally created for **GMTK Game Jam 2025**.
-
-Unfortunately, I wasn't able to submit the game before the deadline.
-
-Even though it missed the submission window, I decided to keep the project and share it as a small game-development experiment.
-
-The project gave me an opportunity to experiment with:
-
-* Godot's physics system
-* Gravitational interactions
-* Orbital trajectories
-* Mouse-based controls
-* Game-state resets
-* Designing a simple gameplay loop around physics
+## 🛠️ Built With Godot
 
 ---
 
 ## 🚧 Future Improvements
 
-Planet Loop is currently a small prototype, but there are plenty of directions it could be taken.
+Planet Loop is currently a small game, but I will be working on it time to time.
 
-### Gameplay
-
-* More levels
-* Increasing difficulty
-* Multiple planets in a single level
-* Different planet sizes and gravity strengths
-* Moving planets
-* Obstacles and hazards
-* More complex orbital paths
-
-### Progression
-
-* Score based on launch efficiency
-* Limited attempts
-* Level progression
-* High scores
-* Unlockable planets
-* Increasingly difficult orbital challenges
-
-### Presentation
-
-* Better visual effects
-* Planet destruction animations
-* Satellite trails
-* Particle effects
-* Background effects
-* Sound effects
-* Music
-* Menus and UI
-* Win/lose screens
-
----
-
-## 📦 Running the Project
-
-To experiment with the project yourself:
-
-1. Install **Godot**.
-2. Clone this repository.
-3. Open the project in Godot.
-4. Import/open the project.
-5. Run the main scene.
-
-```bash
-git clone https://github.com/YOUR_USERNAME/planet-loop.git
-```
-
-Then open the project in Godot and press **Run**.
-
----
-
-## 📜 License
-
-This project is provided as-is for learning, experimentation, and game-development purposes.
-
-If you use any of the project's code or assets in another project, please check the individual asset/code licenses where applicable.
+Plan on adding more levels, features, etc in the future.
 
 ---
 
