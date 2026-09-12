@@ -2,7 +2,7 @@
 
 # 🪐 Planet Loop
 
-> **Shoot. Orbit. Loop. Repeat.**
+> **Shoot, Orbit, Loop, Repeat!**
 
 **Planet Loop** is a small physics-based space game made in **Godot** for **GMTK Game Jam 2025**.
 
@@ -111,7 +111,7 @@ Plan on adding more levels, features, etc in the future.
 
 <p align="center">
   🛰️ <b>Planet Loop</b><br>
-  <i>Shoot. Orbit. Loop. Repeat.</i>
+  <i>Shoot, Orbit, Loop, Repeat!</i>
 </p>
 
 <p align="center">
