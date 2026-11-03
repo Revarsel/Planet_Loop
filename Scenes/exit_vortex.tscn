@@ -1,0 +1,121 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://Scripts/exit_vortex.gd" id="1_vortex"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_glow"]
+offsets = PackedFloat32Array(0, 0.3, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_glow"]
+gradient = SubResource("Gradient_glow")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dot"]
+gradient = SubResource("Gradient_glow")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_palette"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.25, 0.45, 0.65, 0.82)
+colors = PackedColorArray(0.45, 0.85, 1, 1, 0.35, 0.62, 1, 1, 0.6, 1, 0.92, 1, 0.75, 0.62, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_palette"]
+gradient = SubResource("Gradient_palette")
+
+[sub_resource type="Gradient" id="Gradient_swirl"]
+offsets = PackedFloat32Array(0, 0.25, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9, 1, 1, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_swirl"]
+gradient = SubResource("Gradient_swirl")
+
+[sub_resource type="Curve" id="Curve_shrink"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), -1.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_shrink"]
+curve = SubResource("Curve_shrink")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_swirl"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 170.0
+emission_ring_inner_radius = 110.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.0
+initial_velocity_max = 0.0
+orbit_velocity_min = 0.25
+orbit_velocity_max = 0.4
+radial_accel_min = -280.0
+radial_accel_max = -200.0
+scale_min = 0.4
+scale_max = 0.9
+scale_curve = SubResource("CurveTexture_shrink")
+color_ramp = SubResource("GradientTexture1D_swirl")
+color_initial_ramp = SubResource("GradientTexture1D_palette")
+
+[sub_resource type="Gradient" id="Gradient_burst"]
+offsets = PackedFloat32Array(0, 0.3, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.9, 0.8, 0.85, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_burst"]
+gradient = SubResource("Gradient_burst")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_burst"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector3(1, 0, 0)
+spread = 180.0
+initial_velocity_min = 180.0
+initial_velocity_max = 560.0
+gravity = Vector3(0, 0, 0)
+damping_min = 180.0
+damping_max = 280.0
+scale_min = 0.6
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_shrink")
+color_ramp = SubResource("GradientTexture1D_burst")
+color_initial_ramp = SubResource("GradientTexture1D_palette")
+
+[node name="ExitVortex" type="Node2D"]
+script = ExtResource("1_vortex")
+
+[node name="Glow" type="Sprite2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+self_modulate = Color(0.55, 0.88, 1, 1)
+texture = SubResource("GradientTexture2D_glow")
+
+[node name="Swirl" type="GPUParticles2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+emitting = false
+amount = 90
+texture = SubResource("GradientTexture2D_dot")
+lifetime = 1.2
+process_material = SubResource("ParticleProcessMaterial_swirl")
+
+[node name="Burst" type="GPUParticles2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+emitting = false
+amount = 110
+texture = SubResource("GradientTexture2D_dot")
+lifetime = 1.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_burst")

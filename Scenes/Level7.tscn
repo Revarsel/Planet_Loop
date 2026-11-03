@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://0jhi85ue3sfa"]
+
+[ext_resource type="PackedScene" uid="uid://w6a8ecucjs34" path="res://Scenes/planet.tscn" id="1_planet"]
+[ext_resource type="Resource" uid="uid://cpgl4bxh62l87" path="res://Assets/Earth.tres" id="2_earth"]
+[ext_resource type="Resource" uid="uid://dijs1qq1y05i1" path="res://Assets/Earth2.tres" id="2_earth2"]
+[ext_resource type="Resource" uid="uid://rn22vv13aith" path="res://Assets/Mars.tres" id="2_mars"]
+
+[node name="Level7" type="Node2D"]
+
+[node name="Planet" parent="." instance=ExtResource("1_planet")]
+position = Vector2(300, 324)
+res = ExtResource("2_mars")
+
+[node name="Planet2" parent="." instance=ExtResource("1_planet")]
+position = Vector2(900, -60)
+res = ExtResource("2_earth")
+
+[node name="Planet3" parent="." instance=ExtResource("1_planet")]
+position = Vector2(900, 700)
+res = ExtResource("2_earth2")
+
+[node name="Planet4" parent="." instance=ExtResource("1_planet")]
+position = Vector2(1500, 324)
+res = ExtResource("2_mars")
+
+[node name="Planet5" parent="." instance=ExtResource("1_planet")]
+position = Vector2(2100, 324)
+res = ExtResource("2_earth")
+
+[node name="player_pos" type="Marker2D" parent="."]
+position = Vector2(-300, 324)

@@ -13,7 +13,10 @@ var player: RigidBody2D
 @onready var blue_border = $Blue_Border
 @onready var red_border = $Red_Border
 
-var particle_scene: PackedScene
+const EXPLOSION: PackedScene = preload("res://Scenes/planet_explosion.tscn")
+const SHOCKWAVE: PackedScene = preload("res://Scenes/shockwave.tscn")
+const WARM_ACCENT := Color(1.0, 0.45, 0.3)
+const COOL_ACCENT := Color(0.4, 0.8, 1.0)
 
 var calculate: bool = false
 var curr_angle: float = 0
@@ -32,10 +35,17 @@ func _update():
 		sprite.texture = res.texture
 		sprite.scale = Vector2(res.scale, res.scale)
 		print(res.particle)
-		if res.particle == "Red":
-			particle_scene = load("res://Scenes/planet_death_red.tscn")
-		else:
-			particle_scene = load("res://Scenes/planet_death.tscn")
+		var glow := get_node_or_null("Glow") as PlanetGlow
+		if glow != null:
+			var c := accent_color()
+			c.a = glow.glow_color.a
+			glow.glow_color = c
+
+## Highlight colour for this planet's glow and shockwave.
+func accent_color() -> Color:
+	if res != null and res.particle == "Red":
+		return WARM_ACCENT
+	return COOL_ACCENT
 
 func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
@@ -51,10 +61,7 @@ func _physics_process(delta: float) -> void:
 	if player != null:
 		if player.aiming:
 			return
-		var distance: = global_position - player.global_position
-		var length: float = max(distance.length(), 250)
-		var force: = gravity * 2000 * 2.5 / (length * length)
-		player.apply_force(distance.normalized() * force) # * int(length < max_distance))
+		player.apply_force(gravity_force_at(player.global_position)) # * int(length < max_distance))
 		if calculate:
 			curr_angle = abs((player.global_position - global_position).angle())
 			total_angle += abs(curr_angle - prev_angle) * int(!player_dead)
@@ -66,13 +73,30 @@ func _physics_process(delta: float) -> void:
 			red_border.self_modulate = Color(1,1,1, red_alpha)
 			
 			if total_angle > TAU:
+				var others := get_tree().get_nodes_in_group("planet").filter(
+					func(p): return p != self and not p.is_queued_for_deletion())
+				if others.is_empty():
+					# Sent first, so the player knows not to stop on planet_destroyed.
+					Signals.emit_last_planet_destroyed(global_position)
 				Signals.emit_planet_destroyed()
-				var particle = particle_scene.instantiate()
-				particle.global_position = global_position
-				get_node("/root/World/Particles").add_child(particle)
+				var boom: PlanetExplosion = EXPLOSION.instantiate()
+				boom.setup(sprite.texture, sprite.scale, accent_color())
+				boom.global_position = global_position
+				get_node("/root/World/Particles").add_child(boom)
+				var wave: Shockwave = SHOCKWAVE.instantiate()
+				wave.color = accent_color()
+				wave.global_position = global_position
+				get_node("/root/World/Particles").add_child(wave)
 				queue_free()
 		else:
 			reset_borders()
+
+## Pull this planet puts on the player at `pos`. Also used by the launch preview.
+func gravity_force_at(pos: Vector2) -> Vector2:
+	var distance: = global_position - pos
+	var length: float = max(distance.length(), 250)
+	var force: = gravity * 2000 * 2.5 / (length * length)
+	return distance.normalized() * force
 
 func reset_borders():
 	var delta: float = get_process_delta_time()

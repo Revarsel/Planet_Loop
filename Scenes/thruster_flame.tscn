@@ -1,0 +1,80 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://Scripts/jet_trail.gd" id="1_jet"]
+[ext_resource type="Script" path="res://Scripts/thruster_flame.gd" id="2_flame"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_flame"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_dot"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.7, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dot"]
+gradient = SubResource("Gradient_dot")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_flame"]
+offsets = PackedFloat32Array(0, 0.25, 0.6, 1)
+colors = PackedColorArray(1, 0.95, 0.75, 0.75, 1, 0.75, 0.3, 0.85, 1, 0.38, 0.18, 0.65, 0.55, 0.12, 0.25, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_flame"]
+gradient = SubResource("Gradient_flame")
+
+[sub_resource type="Curve" id="Curve_shrink"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), -1.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_shrink"]
+curve = SubResource("Curve_shrink")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flame"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.5
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+initial_velocity_min = 80.0
+initial_velocity_max = 140.0
+gravity = Vector3(0, 0, 0)
+damping_min = 40.0
+damping_max = 80.0
+scale_min = 0.5
+scale_max = 0.95
+scale_curve = SubResource("CurveTexture_shrink")
+color_ramp = SubResource("GradientTexture1D_flame")
+
+[sub_resource type="Curve" id="Curve_jet_width"]
+_data = [Vector2(0, 0.15), 0.0, 0.85, 0, 1, Vector2(1, 1), 0.85, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jet"]
+offsets = PackedFloat32Array(0, 0.4, 0.75, 1)
+colors = PackedColorArray(0.6, 0.1, 0.2, 0, 1, 0.35, 0.15, 0.55, 1, 0.7, 0.3, 0.85, 1, 0.95, 0.8, 1)
+
+[node name="ThrusterFlame" type="GPUParticles2D"]
+show_behind_parent = true
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_flame")
+emitting = false
+amount = 48
+texture = SubResource("GradientTexture2D_dot")
+lifetime = 0.35
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_flame")
+script = ExtResource("2_flame")
+
+[node name="Jet" type="Line2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_flame")
+width = 10.0
+width_curve = SubResource("Curve_jet_width")
+gradient = SubResource("Gradient_jet")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_jet")
