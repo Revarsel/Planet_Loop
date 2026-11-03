@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Signals="*res://Scripts/Signals.gd"
 States="*res://Scripts/States.gd"
+Settings="*res://Scripts/settings.gd"
 
 [debug]
 

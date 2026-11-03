@@ -17,18 +17,18 @@ class_name PlanetExplosion
 @onready var fragments: GPUParticles2D = $Fragments
 @onready var sparks: GPUParticles2D = $Sparks
 
-## Sampled colours per planet texture, so each texture is only read once.
-static var _palette_cache: Dictionary = {}
-
 var _texture: Texture2D
 var _sprite_scale := Vector2.ONE
 var _accent := Color(0.4, 0.8, 1.0)
+var _debris_colors := PackedColorArray()
 
 
-func setup(texture: Texture2D, sprite_scale: Vector2, accent: Color) -> void:
+## `debris_colors` comes from the planet's .tres (planet_sprite.debris_colors).
+func setup(texture: Texture2D, sprite_scale: Vector2, accent: Color, debris_colors: PackedColorArray) -> void:
 	_texture = texture
 	_sprite_scale = sprite_scale
 	_accent = accent
+	_debris_colors = debris_colors
 
 
 func _ready() -> void:
@@ -50,7 +50,7 @@ func _ready() -> void:
 	# never leak into another explosion.
 	var frag_mat := (fragments.process_material as ParticleProcessMaterial).duplicate()
 	var ramp := GradientTexture1D.new()
-	ramp.gradient = palette_for(_texture, _accent)
+	ramp.gradient = _palette(_debris_colors, _accent)
 	frag_mat.color_initial_ramp = ramp
 	fragments.process_material = frag_mat
 	fragments.emitting = true
@@ -63,25 +63,8 @@ func _ready() -> void:
 	get_tree().create_timer(lifetime).timeout.connect(queue_free)
 
 
-## A few colours picked from random solid pixels of the planet texture, as a
-## step gradient. Falls back to the accent colour if the image can't be read.
-static func palette_for(texture: Texture2D, fallback: Color) -> Gradient:
-	if texture != null and _palette_cache.has(texture):
-		return _palette_cache[texture]
-	var colors := PackedColorArray()
-	if texture != null:
-		var img := texture.get_image()
-		if img != null:
-			if img.is_compressed():
-				img.decompress()
-			var rng := RandomNumberGenerator.new()
-			rng.seed = 1 # same palette every run
-			var tries := 0
-			while colors.size() < 8 and tries < 400:
-				tries += 1
-				var c := img.get_pixel(rng.randi_range(0, img.get_width() - 1), rng.randi_range(0, img.get_height() - 1))
-				if c.a > 0.9 and c.get_luminance() > 0.08: # skip outline black
-					colors.append(c)
+## Step gradient so each chunk gets exactly one of the colours.
+static func _palette(colors: PackedColorArray, fallback: Color) -> Gradient:
 	if colors.is_empty():
 		colors = PackedColorArray([fallback, fallback.darkened(0.3), fallback.lightened(0.3)])
 	var g := Gradient.new()
@@ -91,6 +74,4 @@ static func palette_for(texture: Texture2D, fallback: Color) -> Gradient:
 		offsets.append(float(i) / colors.size())
 	g.offsets = offsets
 	g.colors = colors
-	if texture != null:
-		_palette_cache[texture] = g
 	return g

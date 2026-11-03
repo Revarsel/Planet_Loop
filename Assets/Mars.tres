@@ -8,3 +8,4 @@ script = ExtResource("1_bqgwe")
 texture = ExtResource("2_bqgwe")
 scale = 0.1
 particle = "Red"
+debris_colors = PackedColorArray(0.910, 0.282, 0.220, 1, 0.220, 0.157, 0.220, 1, 0.659, 0.220, 0.282, 1, 0.345, 0.220, 0.282, 1, 0.784, 0.157, 0.094, 1, 0.910, 0.220, 0.031, 1)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlguyb1x1xprl"]
+
+[ext_resource type="Script" uid="uid://ds2gi2ygd053b" path="res://Scripts/music_toggle.gd" id="1_music"]
+
+[node name="MusicToggle" type="Button"]
+custom_minimum_size = Vector2(68, 68)
+offset_right = 68.0
+offset_bottom = 68.0
+focus_mode = 0
+flat = true
+script = ExtResource("1_music")

@@ -26,9 +26,21 @@ func _ready() -> void:
 ## for one physics step) from `body`'s current position.
 func update_path(body: RigidBody2D, launch_force: Vector2) -> void:
 	var dt := get_physics_process_delta_time() # already scaled by Engine.time_scale
+	var planets: Array[Node] = []
+	for p in get_tree().get_nodes_in_group("planet"):
+		if not p.is_queued_for_deletion():
+			planets.append(p)
+	# Called every frame while aiming; skip the work if nothing changed.
+	var key := [body.global_position, launch_force, planets.size(), dt]
+	if key == _last_key:
+		return
+	_last_key = key
+
 	var damp_factor: float = maxf(1.0 - dt * _total_linear_damp(body), 0.0)
-	var planets := get_tree().get_nodes_in_group("planet").filter(
-		func(p): return not p.is_queued_for_deletion())
+	var centers := PackedVector2Array()
+	for p in planets:
+		centers.append(p.global_position)
+	var crash_sq := CRASH_DISTANCE * CRASH_DISTANCE
 
 	var pos := body.global_position
 	var vel := Vector2.ZERO
@@ -42,9 +54,17 @@ func update_path(body: RigidBody2D, launch_force: Vector2) -> void:
 		pos += vel * dt
 		points.append(pos)
 		force = Vector2.ZERO
-		if planets.any(func(p): return p.global_position.distance_to(pos) < CRASH_DISTANCE):
+		var crashed := false
+		for c in centers:
+			if c.distance_squared_to(pos) < crash_sq:
+				crashed = true
+				break
+		if crashed:
 			break
 	queue_redraw()
+
+
+var _last_key: Array = []
 
 
 func _total_linear_damp(body: RigidBody2D) -> float:
