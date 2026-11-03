@@ -14,3 +14,8 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Local tooling (Claude / Godot MCP), not part of the game
+.mcp.json
+addons/godot_mcp_toolkit/
+.backup/
