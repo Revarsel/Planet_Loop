@@ -25,6 +25,11 @@ var curr_velocity: Vector2 = Vector2.ZERO
 @onready var line1: Line2D = $Line2D2
 @onready var sprite: Sprite2D = $Sprite2D
 
+@onready var preview: TrajectoryPreview = $TrajectoryPreview
+
+## The old aim line, replaced by the trajectory preview. Turn on to bring it back.
+@export var show_aim_line: bool = false
+
 func _ready() -> void:
 	contact_monitor = true
 	freeze = true
@@ -33,6 +38,8 @@ func _ready() -> void:
 	Signals.planet_destroyed.connect(_planet_destroyed)
 	Signals.paused.connect(_paused)
 	Signals.unpaused.connect(_unpaused)
+	line.visible = show_aim_line
+	line1.visible = show_aim_line
 
 func _process(delta: float) -> void:
 	if paused:
@@ -77,10 +84,14 @@ func _process(delta: float) -> void:
 		line.set_point_position(1, line_length)
 		line1.set_point_position(0, min_line_length)
 		line1.set_point_position(1, max_line_length)
+		var launch_force: Vector2 = mouse_dist.normalized() * strength * 10 * throw_strength
+		preview.visible = true
+		preview.update_path(self, launch_force)
 		if mouse_click:
 			$Throw.play()
 			freeze = false
-			apply_force(mouse_dist.normalized() * strength * 10 * throw_strength)
+			apply_force(launch_force)
+			preview.visible = false
 			line.visible = false
 			line1.visible = false
 			aiming = false
@@ -88,8 +99,8 @@ func _process(delta: float) -> void:
 
 func _planet_destroyed():
 	aiming = true
-	line.visible = true
-	line1.visible = true
+	line.visible = show_aim_line
+	line1.visible = show_aim_line
 	freeze = true
 
 func _on_body_entered(body: Node):

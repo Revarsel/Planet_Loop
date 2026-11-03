@@ -51,10 +51,7 @@ func _physics_process(delta: float) -> void:
 	if player != null:
 		if player.aiming:
 			return
-		var distance: = global_position - player.global_position
-		var length: float = max(distance.length(), 250)
-		var force: = gravity * 2000 * 2.5 / (length * length)
-		player.apply_force(distance.normalized() * force) # * int(length < max_distance))
+		player.apply_force(gravity_force_at(player.global_position)) # * int(length < max_distance))
 		if calculate:
 			curr_angle = abs((player.global_position - global_position).angle())
 			total_angle += abs(curr_angle - prev_angle) * int(!player_dead)
@@ -73,6 +70,13 @@ func _physics_process(delta: float) -> void:
 				queue_free()
 		else:
 			reset_borders()
+
+## Pull this planet puts on the player at `pos`. Also used by the launch preview.
+func gravity_force_at(pos: Vector2) -> Vector2:
+	var distance: = global_position - pos
+	var length: float = max(distance.length(), 250)
+	var force: = gravity * 2000 * 2.5 / (length * length)
+	return distance.normalized() * force
 
 func reset_borders():
 	var delta: float = get_process_delta_time()

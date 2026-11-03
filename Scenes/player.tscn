@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1v78v08q0431"]
+[gd_scene load_steps=22 format=3 uid="uid://d1v78v08q0431"]
 
 [ext_resource type="Script" uid="uid://dmf72nab1roco" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="2_cvnsp"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bkkdk6g7agspg" path="res://Assets/Sounds/dragon-studio-car-crash-sound-376882.mp3" id="4_x3wgy"]
 [ext_resource type="AudioStream" uid="uid://byach6j6rlw05" path="res://Assets/Sounds/u_mgq59j5ayf-sound-effect-car-crash-394903.mp3" id="5_3smsa"]
 [ext_resource type="AudioStream" uid="uid://cve8cpqwg8jcm" path="res://Assets/Sounds/throw.ogg" id="5_fkybt"]
+[ext_resource type="PackedScene" path="res://Scenes/trajectory_preview.tscn" id="8_8erm5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
 
@@ -146,3 +147,5 @@ size = Vector2i(10, 10)
 [node name="ColorRect" type="ColorRect" parent="SubViewport"]
 offset_right = 10.0
 offset_bottom = 10.0
+
+[node name="TrajectoryPreview" parent="." instance=ExtResource("8_8erm5")]
