@@ -33,20 +33,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Level and !player_dest:
-		var pause = pause_scene.instantiate()
-		$Screens.add_child(pause)
-		States.curr_state = States.states.Pause
-		camera.pause_cam()
-		Signals.emit_paused()
+		pause_game()
 
 	elif Input.is_action_just_pressed("ui_cancel") and States.curr_state == States.states.Pause:
-		var paused_node = get_tree().get_first_node_in_group("pause")
 		var screens = get_node("/root/World/Screens")
 		if screens.get_child_count() == 1:
-			paused_node.queue_free()
-			States.curr_state = States.states.Level
-			camera.update_cam()
-			Signals.emit_unpaused()
+			resume_game()
 		else:
 			screens.get_child(-1).queue_free()
 			screens.get_child(-2).visible = true
@@ -71,6 +63,26 @@ func _process(delta: float) -> void:
 			if _clear_time_left <= 0.0:
 				_clearing = false
 				_advance_level()
+
+func pause_game() -> void:
+	var pause = pause_scene.instantiate()
+	$Screens.add_child(pause)
+	States.curr_state = States.states.Pause
+	camera.pause_cam()
+	Signals.emit_paused()
+
+## Close the pause menu (and anything opened from it) and carry on playing.
+func resume_game() -> void:
+	for screen in $Screens.get_children():
+		screen.queue_free()
+	States.curr_state = States.states.Level
+	camera.update_cam()
+	Signals.emit_unpaused()
+
+## Back to the title screen: reload the world from scratch.
+func go_to_main_menu() -> void:
+	States.curr_state = States.states.MainMenu
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 func _advance_level() -> void:
 	if current_level >= levels.size():

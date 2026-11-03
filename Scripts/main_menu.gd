@@ -40,11 +40,9 @@ func _on_exit_button_down() -> void:
 func _on_how_to_play_button_pressed() -> void:
 	HowToPlayPressed.texture = HowToPlayU
 	var how_to_play = load("res://Scenes/HowToPlay.tscn").instantiate()
+	how_to_play.previous_screen = self # its back button brings this menu back
 	get_node("/root/World/Screens").add_child(how_to_play)
-	if States.curr_state == States.states.MainMenu:
-		queue_free()
-	else:
-		visible = false
+	visible = false
 
 func _on_how_to_play_button_button_down() -> void:
 	HowToPlayPressed.texture = HowToPlayP

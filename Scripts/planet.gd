@@ -34,7 +34,6 @@ func _update():
 	if res != null:
 		sprite.texture = res.texture
 		sprite.scale = Vector2(res.scale, res.scale)
-		print(res.particle)
 		var glow := get_node_or_null("Glow") as PlanetGlow
 		if glow != null:
 			var c := accent_color()
@@ -80,7 +79,8 @@ func _physics_process(delta: float) -> void:
 					Signals.emit_last_planet_destroyed(global_position)
 				Signals.emit_planet_destroyed()
 				var boom: PlanetExplosion = EXPLOSION.instantiate()
-				boom.setup(sprite.texture, sprite.scale, accent_color())
+				boom.setup(sprite.texture, sprite.scale, accent_color(),
+					res.debris_colors if res != null else PackedColorArray())
 				boom.global_position = global_position
 				get_node("/root/World/Particles").add_child(boom)
 				var wave: Shockwave = SHOCKWAVE.instantiate()

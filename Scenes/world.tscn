@@ -48,9 +48,8 @@ camera = NodePath("../..")
 parallax_factor = 0.25
 
 [node name="Nebula" parent="Camera2D/CanvasLayer" instance=ExtResource("5_k7acu")]
-camera = NodePath("../..")
 
-[node name="BackgroundPlanets" parent="." instance=ExtResource("6_5v1tr")]
+[node name="BackgroundPlanets" parent="Camera2D/CanvasLayer" instance=ExtResource("6_5v1tr")]
 
 [node name="Level" type="Node2D" parent="."]
 
