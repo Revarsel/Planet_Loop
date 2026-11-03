@@ -1,10 +1,11 @@
 shader_type canvas_item;
-render_mode blend_add;
-// Nebula clouds added on top of the star background. Drawn in chunky pixels
-// with a few colour bands to match the pixel-art style.
-// camera_offset is set by background_twinkle.gd, like the star shader.
+// Nebula clouds, drawn in chunky pixels with a few colour bands to match the
+// pixel-art style. Rendered at low resolution by nebula_layer.gd, which adds
+// the result over the stars and sets camera_offset.
 
 uniform vec2 camera_offset = vec2(0.0, 0.0);
+// Screen pixels per rendered pixel, so the clouds keep their full-res size.
+uniform float resolution_scale = 1.0;
 uniform float strength = 0.45;
 uniform float noise_scale = 0.0018;
 uniform float pixel_size = 4.0;
@@ -49,7 +50,7 @@ float fbm(vec2 p) {
 }
 
 void fragment() {
-	vec2 coord = floor((FRAGCOORD.xy + camera_offset) / pixel_size) * pixel_size;
+	vec2 coord = floor((FRAGCOORD.xy * resolution_scale + camera_offset) / pixel_size) * pixel_size;
 	vec2 p = coord * noise_scale;
 	float drift = TIME * 0.01;
 	// Domain warp: bend the lookup by another noise so cloud edges stay organic
