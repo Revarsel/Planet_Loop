@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://w6a8ecucjs34"]
+[gd_scene load_steps=8 format=3 uid="uid://w6a8ecucjs34"]
 
 [ext_resource type="Script" uid="uid://ctp2ijkmuavnm" path="res://Scripts/planet.gd" id="1_m0iey"]
 [ext_resource type="Texture2D" uid="uid://bnhr1jefvbjpc" path="res://Assets/Gradient_Border-4.png" id="2_m0iey"]
+[ext_resource type="PackedScene" path="res://Scenes/planet_glow.tscn" id="2_skk7a"]
 [ext_resource type="Texture2D" uid="uid://3y2fga4lv40u" path="res://Assets/Earth-3.png" id="2_vpe2g"]
 [ext_resource type="Texture2D" uid="uid://cxintmcxhxemv" path="res://Assets/Gradient_Border-4-Red.png" id="4_ytj11"]
 
@@ -13,6 +14,8 @@ radius = 300.0
 
 [node name="Planet" type="StaticBody2D" groups=["planet"]]
 script = ExtResource("1_m0iey")
+
+[node name="Glow" parent="." instance=ExtResource("2_skk7a")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

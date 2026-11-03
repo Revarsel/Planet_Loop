@@ -16,8 +16,28 @@ var main_pos: Vector2 = Vector2(576, 324)
 var update: bool = true
 var paused: bool = false
 
+## Screen shake, in pixels, on planet destroyed / player crash.
+@export var destroy_shake: float = 8.0
+@export var crash_shake: float = 14.0
+## How fast the shake dies down, pixels per game second.
+@export var shake_decay: float = 30.0
+var shake: float = 0.0
+
 func _ready() -> void:
 	Signals.player_reset.connect(update_cam)
+	Signals.planet_destroyed.connect(func(): add_shake(destroy_shake))
+	Signals.player_destroyed.connect(func(): add_shake(crash_shake))
+
+func add_shake(amount: float) -> void:
+	shake = maxf(shake, amount)
+
+func _process(delta: float) -> void:
+	# Uses offset, so it never fights the position following in _physics_process.
+	if shake > 0.0:
+		offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * shake
+		shake = move_toward(shake, 0.0, shake_decay * delta)
+	else:
+		offset = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("player")

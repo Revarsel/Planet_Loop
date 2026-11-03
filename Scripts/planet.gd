@@ -14,6 +14,9 @@ var player: RigidBody2D
 @onready var red_border = $Red_Border
 
 var particle_scene: PackedScene
+const SHOCKWAVE: PackedScene = preload("res://Scenes/shockwave.tscn")
+const WARM_ACCENT := Color(1.0, 0.45, 0.3)
+const COOL_ACCENT := Color(0.4, 0.8, 1.0)
 
 var calculate: bool = false
 var curr_angle: float = 0
@@ -36,6 +39,17 @@ func _update():
 			particle_scene = load("res://Scenes/planet_death_red.tscn")
 		else:
 			particle_scene = load("res://Scenes/planet_death.tscn")
+		var glow := get_node_or_null("Glow") as PlanetGlow
+		if glow != null:
+			var c := accent_color()
+			c.a = glow.glow_color.a
+			glow.glow_color = c
+
+## Highlight colour for this planet's glow and shockwave.
+func accent_color() -> Color:
+	if res != null and res.particle == "Red":
+		return WARM_ACCENT
+	return COOL_ACCENT
 
 func _ready() -> void:
 	area.body_entered.connect(_on_body_entered)
@@ -67,6 +81,10 @@ func _physics_process(delta: float) -> void:
 				var particle = particle_scene.instantiate()
 				particle.global_position = global_position
 				get_node("/root/World/Particles").add_child(particle)
+				var wave: Shockwave = SHOCKWAVE.instantiate()
+				wave.color = accent_color()
+				wave.global_position = global_position
+				get_node("/root/World/Particles").add_child(wave)
 				queue_free()
 		else:
 			reset_borders()

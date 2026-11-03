@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://d1v78v08q0431"]
+[gd_scene load_steps=23 format=3 uid="uid://d1v78v08q0431"]
 
 [ext_resource type="Script" uid="uid://dmf72nab1roco" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://b8r11ij0q6kfm" path="res://Assets/Satellite-1-Copy-2.png" id="2_cvnsp"]
+[ext_resource type="PackedScene" path="res://Scenes/flight_trail.tscn" id="2_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://cntw03ycg2gt5" path="res://Assets/particle_curve.tres" id="3_x3wgy"]
 [ext_resource type="AudioStream" uid="uid://cw5jinxlvgtl5" path="res://Assets/Sounds/Ascend_Static_Distortion_4.ogg" id="4_vgqql"]
 [ext_resource type="AudioStream" uid="uid://bkkdk6g7agspg" path="res://Assets/Sounds/dragon-studio-car-crash-sound-376882.mp3" id="4_x3wgy"]
@@ -77,6 +78,8 @@ collision_layer = 3
 collision_mask = 3
 linear_damp = 0.1
 script = ExtResource("1_v0iea")
+
+[node name="FlightTrail" parent="." instance=ExtResource("2_f1ek2")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_f60y1")

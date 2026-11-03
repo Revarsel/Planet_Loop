@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs6raedppu003"]
+[gd_scene load_steps=10 format=3 uid="uid://bs6raedppu003"]
 
 [ext_resource type="Script" uid="uid://b17agoqotreoi" path="res://Scripts/camera_2d.gd" id="1_5a7ea"]
 [ext_resource type="Script" uid="uid://bxq11r7j6prky" path="res://Scripts/world.gd" id="1_fo5ed"]
 [ext_resource type="Shader" uid="uid://begufrpx4wpku" path="res://Scripts/world.gdshader" id="2_8j60k"]
 [ext_resource type="Script" uid="uid://b63ivrkvcsk7q" path="res://Scripts/background_twinkle.gd" id="3_fo5ed"]
 [ext_resource type="PackedScene" uid="uid://c5brmtrmjh38r" path="res://Scenes/MainMenu.tscn" id="5_fo5ed"]
+[ext_resource type="PackedScene" path="res://Scenes/nebula.tscn" id="5_k7acu"]
+[ext_resource type="PackedScene" path="res://Scenes/background_planets.tscn" id="6_5v1tr"]
+[ext_resource type="PackedScene" path="res://Scenes/vignette.tscn" id="7_0fj1v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fo5ed"]
 shader = ExtResource("2_8j60k")
@@ -41,7 +44,14 @@ script = ExtResource("3_fo5ed")
 camera = NodePath("../..")
 parallax_factor = 0.25
 
+[node name="Nebula" parent="Camera2D/CanvasLayer" instance=ExtResource("5_k7acu")]
+camera = NodePath("../..")
+
+[node name="BackgroundPlanets" parent="." instance=ExtResource("6_5v1tr")]
+
 [node name="Level" type="Node2D" parent="."]
+
+[node name="Vignette" parent="." instance=ExtResource("7_0fj1v")]
 
 [node name="Screens" type="CanvasLayer" parent="."]
 
