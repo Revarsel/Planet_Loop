@@ -10,7 +10,7 @@ var player_dest: bool = false
 
 var endScene: PackedScene = preload("res://Scenes/EndScreen.tscn")
 
-@onready var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn")]
+@onready var levels: Array[PackedScene] = [preload("res://Scenes/Level1.tscn"), preload("res://Scenes/Level2.tscn"), preload("res://Scenes/Level3.tscn"), preload("res://Scenes/Level4.tscn"), preload("res://Scenes/Level5.tscn"), preload("res://Scenes/Level6.tscn"), preload("res://Scenes/Level7.tscn"), preload("res://Scenes/Level8.tscn"), preload("res://Scenes/Level9.tscn"), preload("res://Scenes/Level10.tscn")]
 
 @onready var level_node: Node2D = $Level
 @onready var particles_node: Node2D = $Particles
@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 		
 	var planets: Array[Node] = get_tree().get_nodes_in_group("planet")
 	if planets.size() == 0 and States.curr_state == States.states.Level:
-		if current_level > 5:
+		if current_level >= levels.size():
 			level_node.get_child(0).queue_free()
 			var endScreen: Control = endScene.instantiate()
 			add_child(endScreen)
