@@ -13,7 +13,7 @@ var player: RigidBody2D
 @onready var blue_border = $Blue_Border
 @onready var red_border = $Red_Border
 
-var particle_scene: PackedScene
+const EXPLOSION: PackedScene = preload("res://Scenes/planet_explosion.tscn")
 const SHOCKWAVE: PackedScene = preload("res://Scenes/shockwave.tscn")
 const WARM_ACCENT := Color(1.0, 0.45, 0.3)
 const COOL_ACCENT := Color(0.4, 0.8, 1.0)
@@ -35,10 +35,6 @@ func _update():
 		sprite.texture = res.texture
 		sprite.scale = Vector2(res.scale, res.scale)
 		print(res.particle)
-		if res.particle == "Red":
-			particle_scene = load("res://Scenes/planet_death_red.tscn")
-		else:
-			particle_scene = load("res://Scenes/planet_death.tscn")
 		var glow := get_node_or_null("Glow") as PlanetGlow
 		if glow != null:
 			var c := accent_color()
@@ -77,10 +73,16 @@ func _physics_process(delta: float) -> void:
 			red_border.self_modulate = Color(1,1,1, red_alpha)
 			
 			if total_angle > TAU:
+				var others := get_tree().get_nodes_in_group("planet").filter(
+					func(p): return p != self and not p.is_queued_for_deletion())
+				if others.is_empty():
+					# Sent first, so the player knows not to stop on planet_destroyed.
+					Signals.emit_last_planet_destroyed(global_position)
 				Signals.emit_planet_destroyed()
-				var particle = particle_scene.instantiate()
-				particle.global_position = global_position
-				get_node("/root/World/Particles").add_child(particle)
+				var boom: PlanetExplosion = EXPLOSION.instantiate()
+				boom.setup(sprite.texture, sprite.scale, accent_color())
+				boom.global_position = global_position
+				get_node("/root/World/Particles").add_child(boom)
 				var wave: Shockwave = SHOCKWAVE.instantiate()
 				wave.color = accent_color()
 				wave.global_position = global_position

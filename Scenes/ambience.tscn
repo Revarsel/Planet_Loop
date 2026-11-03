@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/ambience.gd" id="1_amb"]
+[ext_resource type="AudioStream" uid="uid://cfyj18t7sn4yu" path="res://Assets/Sounds/freesound/music_space_arp_473996.ogg" id="2_music"]
+[ext_resource type="AudioStream" uid="uid://cad4htb28fwml" path="res://Assets/Sounds/freesound/ambience_soundscape_534800.ogg" id="3_soundscape"]
+[ext_resource type="AudioStream" uid="uid://bj5fei3agmo13" path="res://Assets/Sounds/freesound/ambience_dark_drone_845391.ogg" id="4_drone"]
+
+[node name="Ambience" type="Node"]
+process_mode = 3
+script = ExtResource("1_amb")
+accent_streams = Array[AudioStream]([ExtResource("3_soundscape"), ExtResource("4_drone")])
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_music")
+
+[node name="Accent" type="AudioStreamPlayer" parent="."]

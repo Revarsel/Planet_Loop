@@ -1,0 +1,132 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://Scripts/planet_explosion.gd" id="1_boom"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_glow"]
+offsets = PackedFloat32Array(0, 0.3, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_flash"]
+gradient = SubResource("Gradient_glow")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dot"]
+gradient = SubResource("Gradient_glow")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_white"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_chunk"]
+gradient = SubResource("Gradient_white")
+width = 4
+height = 4
+
+[sub_resource type="Curve" id="Curve_fade"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.65, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fade"]
+curve = SubResource("Curve_fade")
+
+[sub_resource type="Gradient" id="Gradient_cool"]
+offsets = PackedFloat32Array(0, 0.25, 1)
+colors = PackedColorArray(2.4, 1.9, 1.5, 1, 1.35, 1.3, 1.25, 1, 1.1, 1.1, 1.1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cool"]
+gradient = SubResource("Gradient_cool")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fragments"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 55.0
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(1, 0, 0)
+spread = 180.0
+initial_velocity_min = 70.0
+initial_velocity_max = 240.0
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+damping_min = 25.0
+damping_max = 45.0
+scale_min = 1.5
+scale_max = 3.5
+color_ramp = SubResource("GradientTexture1D_cool")
+alpha_curve = SubResource("CurveTexture_fade")
+
+[sub_resource type="Curve" id="Curve_shrink"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_shrink"]
+curve = SubResource("Curve_shrink")
+
+[sub_resource type="Gradient" id="Gradient_spark"]
+offsets = PackedFloat32Array(0, 0.3, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.95, 0.85, 0.9, 1, 0.6, 0.45, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_spark"]
+gradient = SubResource("Gradient_spark")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sparks"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 40.0
+direction = Vector3(1, 0, 0)
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 450.0
+gravity = Vector3(0, 0, 0)
+damping_min = 150.0
+damping_max = 250.0
+scale_min = 0.5
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_shrink")
+color_ramp = SubResource("GradientTexture1D_spark")
+
+[node name="PlanetExplosion" type="Node2D"]
+script = ExtResource("1_boom")
+
+[node name="Flash" type="Sprite2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+scale = Vector2(1.5, 1.5)
+texture = SubResource("GradientTexture2D_flash")
+
+[node name="Body" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Fragments" type="GPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_chunk")
+lifetime = 2.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fragments")
+
+[node name="Sparks" type="GPUParticles2D" parent="."]
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+emitting = false
+amount = 60
+texture = SubResource("GradientTexture2D_dot")
+lifetime = 1.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_sparks")

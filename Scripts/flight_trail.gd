@@ -15,12 +15,19 @@ func _ready() -> void:
 	global_position = Vector2.ZERO
 	body = get_parent() as Player
 	clear_points()
+	# Off for good once this satellite crashes; the respawned one gets a fresh trail.
+	Signals.player_destroyed.connect(_on_crash)
+
+
+func _on_crash() -> void:
+	clear_points()
+	set_physics_process(false)
 
 
 func _physics_process(_delta: float) -> void:
 	if body == null or body.paused:
 		return
-	if body.aiming or body.freeze:
+	if body.aiming or (body.freeze and not body.exiting):
 		for i in mini(shrink_per_step, get_point_count()):
 			remove_point(0)
 		return

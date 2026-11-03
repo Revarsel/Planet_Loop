@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/planet_destroyed_sound.gd" id="1_pds"]
+[ext_resource type="AudioStream" uid="uid://7gyrljtmfi1g" path="res://Assets/Sounds/freesound/planet_destroyed_490303.ogg" id="2_pds"]
+
+[node name="PlanetDestroyedSound" type="AudioStreamPlayer"]
+stream = ExtResource("2_pds")
+volume_db = -6.0
+script = ExtResource("1_pds")
