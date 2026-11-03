@@ -19,3 +19,4 @@ mono_crash.*.json
 .mcp.json
 addons/godot_mcp_toolkit/
 .backup/
+_local/
